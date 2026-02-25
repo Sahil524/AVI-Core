@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-avicore — hardened, single-file media CLI.
-Senior-architect revision: defensive, codec-aware, progress-driven, diagnosable.
-"""
-
 from __future__ import annotations
 
 import sys
@@ -17,7 +11,7 @@ import click
 import glob
 
 IMAGE_FORMATS = {"jpg","jpeg","png","webp","bmp"}
-VIDEO_FORMATS = {"mp4","mkv","mov","avi","webm"}
+VIDEO_FORMATS = {"mp4","mkv","mov","avi","webm","m4v","flv","ts"}
 AUDIO_FORMATS = {"mp3","wav","aac","flac","ogg"}
 
 # ============================================================
@@ -103,8 +97,6 @@ def register_cleanup() -> None:
     signal.signal(signal.SIGINT, _handler)
     signal.signal(signal.SIGTERM, _handler)
 
-
-
 def suggest_path(path: Path) -> Path:
     base = path.stem
     suffix = path.suffix
@@ -129,8 +121,6 @@ def backup_original(src: Path) -> Path:
 
     src.rename(target)
     return target
-
-
 
 # ============================================================
 # Subprocess Wrapper
@@ -265,16 +255,17 @@ IMPORTANT:
 @cli.group()
 def video(): pass
 
-@video.command(help="Convert video container.\nSafe default: libx264 + aac.\nUse --fast to stream-copy.")
+@video.command(help="Universal video convert (container-aware + codec-safe).")
 @click.argument("input", nargs=-1)
 @click.argument("format")
-@click.option("--fast", is_flag=True, help="Use codec copy when compatible.")
-@click.option("--force", is_flag=True)
+@click.option("--fast", is_flag=True, help="Attempt stream copy first.")
+@click.option("--force", is_flag=True, help="Overwrite if output exists.")
 @click.pass_context
 def convert(ctx: click.Context, input: str, format: str, fast: bool, force: bool) -> None:
 
-    if format.lower() not in VIDEO_FORMATS:
-        raise click.ClickException("Unsupported video format")
+    format = format.lower().strip().lstrip(".")
+    if not format.isalnum() or format not in VIDEO_FORMATS:
+        raise click.ClickException(f"Unsupported video format: {format}")
 
     files = expand_inputs(input)
     if not files:
@@ -283,43 +274,142 @@ def convert(ctx: click.Context, input: str, format: str, fast: bool, force: bool
     ffmpeg: Path = ctx.obj["ffmpeg"]
     dry_run = ctx.obj["dry_run"]
 
+    # ---- Container-aware codec matrix ----
+    container_map = {
+        "mkv":  {"v": "libx264",     "a": "aac", "s": "copy"},
+        "mp4":  {"v": "libx264",     "a": "aac", "s": "mov_text"},
+        "m4v":  {"v": "libx264",     "a": "aac", "s": "mov_text"},
+        "mov":  {"v": "libx264",     "a": "aac", "s": "mov_text"},
+        "webm": {"v": "libvpx-vp9",  "a": "libopus", "s": None},
+        "avi":  {"v": "libxvid",     "a": "libmp3lame", "s": None},
+        "flv":  {"v": "libx264",     "a": "aac", "s": None},
+        "ts":   {"v": "libx264",     "a": "aac", "s": None},
+    }
+
     ok = fail = 0
 
     with click.progressbar(files, label="Converting videos") as bar:
         for src in bar:
 
-            dst = src.with_name(src.stem + "." + format)
-
-            if dst.exists() and not force:
-                click.secho(f"Skipping existing file: {dst.name}", fg="yellow")
+            if not src.exists() or not src.is_file():
+                logging.warning("Invalid source: %s", src)
                 fail += 1
                 continue
 
-            if fast:
-                cmd = [str(ffmpeg), "-i", str(src), "-map", "0", "-c", "copy", str(dst)]
-            else:
-                cmd = [
-                    str(ffmpeg), "-i", str(src),
-                    "-map", "0",
-                    "-c:v", "libx264",
-                    "-c:a", "aac",
-                    "-movflags", "+faststart",
-                    str(dst),
-                ]
+            dst = src.with_name(src.stem + "." + format)
 
-            if run_ffmpeg(cmd, dry_run):
-                backup_original(src)
-                CREATED_FILES.append(dst)
-                ok += 1
+            if dst.exists():
+                if not force:
+                    click.secho(f"Skipping existing file: {dst.name}", fg="yellow")
+                    fail += 1
+                    continue
+                dst.unlink(missing_ok=True)
+
+            temp_output = dst.with_name(dst.stem + "_tmp" + dst.suffix)
+
+            # ---------- STREAM COPY ATTEMPT ----------
+            if fast:
+                copy_cmd = [
+                    str(ffmpeg), "-y",
+                    "-i", str(src),
+                    "-map", "0",
+                    "-c", "copy",
+                    str(temp_output),
+                ]
+                if run_ffmpeg(copy_cmd, dry_run):
+                    try:
+                        backup_original(src)
+                        temp_output.replace(dst)
+                        CREATED_FILES.append(dst)
+                        ok += 1
+                        continue
+                    except Exception:
+                        logging.exception("Finalize failure (copy)")
+                        fail += 1
+                        continue
+                else:
+                    temp_output.unlink(missing_ok=True)
+
+            # ---------- UNIVERSAL ENCODE ----------
+            if format in container_map:
+                vcodec = container_map[format]["v"]
+                acodec = container_map[format]["a"]
             else:
+                vcodec = "libx264"
+                acodec = "aac"
+
+            encode_cmd = [
+                str(ffmpeg), "-y",
+                "-i", str(src),
+                "-map", "0:v:0?",
+                "-map", "0:a:0?",
+                "-c:a", acodec,
+                "-map", "0:s:0?",
+                "-map_metadata", "0",
+                "-c:v", vcodec,
+                "-pix_fmt", "yuv420p",
+                "-fps_mode", "passthrough",
+                "-color_primaries", "bt709",
+                "-color_trc", "bt709",
+                "-colorspace", "bt709",
+            ]
+
+            if vcodec == "libx264":
+                encode_cmd += ["-profile:v", "high", "-level", "4.1"]
+
+            if format == "webm":
+                encode_cmd = [
+                    str(ffmpeg), "-y",
+                    "-i", str(src),
+                    "-map", "0:v:0?",
+                    "-map", "0:a:0?",
+                    "-c:v", vcodec,
+                    "-row-mt", "1",
+                    "-deadline", "good",
+                    "-pix_fmt", "yuv420p",
+                    "-color_primaries", "bt709",
+                    "-color_trc", "bt709",
+                    "-colorspace", "bt709",
+                    "-fps_mode", "passthrough",
+                    "-c:a", acodec,
+                    "-map_metadata", "0",
+                    "-map_chapters", "0",
+                ]
+            else:
+                encode_cmd += ["-ac", "2", "-ar", "48000"]
+            
+            if format in {"mp4", "mov", "m4v"}:
+                encode_cmd += ["-movflags", "+faststart", "-c:s", "mov_text"]
+            elif format == "mkv":
+                encode_cmd += ["-c:s", "copy"]
+            else:
+                encode_cmd += ["-sn"]
+
+            encode_cmd += [
+                "-dn",
+                "-max_muxing_queue_size", "4096",
+                str(temp_output),
+            ]
+
+            if run_ffmpeg(encode_cmd, dry_run):
+                try:
+                    backup_original(src)
+                    temp_output.replace(dst)
+                    CREATED_FILES.append(dst)
+                    ok += 1
+                except Exception:
+                    logging.exception("Finalize failure (encode)")
+                    temp_output.unlink(missing_ok=True)
+                    fail += 1
+            else:
+                temp_output.unlink(missing_ok=True)
                 fail += 1
 
     click.secho(f"Completed → Success: {ok} | Failed: {fail}", fg="green")
 
-
-@video.command(help="Mute video (remove audio only, keep metadata).")
+@video.command(help="Universal mute (removes all audio streams safely).")
 @click.argument("input", nargs=-1)
-@click.option("--force", is_flag=True)
+@click.option("--force", is_flag=True, help="Overwrite if output exists.")
 @click.pass_context
 def mute(ctx: click.Context, input: str, force: bool) -> None:
 
@@ -335,30 +425,49 @@ def mute(ctx: click.Context, input: str, force: bool) -> None:
     with click.progressbar(files, label="Muting videos") as bar:
         for src in bar:
 
-            dst = src  # overwrite same filename
-
-            if dst.exists() and not force:
-                click.secho(f"Skipping existing file: {dst.name}", fg="yellow")
+            if not src.exists() or not src.is_file():
+                logging.warning("Invalid source: %s", src)
                 fail += 1
                 continue
 
+            dst = src
+            temp_output = src.with_name(src.stem + "_muted_tmp" + src.suffix)
+
+            if dst.exists() and not force:
+                click.secho(f"Use --force to overwrite: {dst.name}", fg="yellow")
+                fail += 1
+                continue
+
+            temp_output.unlink(missing_ok=True)
+
             cmd = [
-                str(ffmpeg), "-i", str(src),
-                "-map", "0",
+                str(ffmpeg), "-y",
+                "-i", str(src),
+                "-map", "0:v?",
+                "-map", "0:s?",
+                "-map_metadata", "0",
+                "-c", "copy",
                 "-an",
-                "-c:v", "copy",
-                "-c:s", "copy",
-                str(dst),
+                "-max_muxing_queue_size", "4096",
+                str(temp_output),
             ]
 
             if run_ffmpeg(cmd, dry_run):
-                backup_original(src)
-                CREATED_FILES.append(dst)
-                ok += 1
+                try:
+                    backup_original(src)
+                    temp_output.replace(dst)
+                    CREATED_FILES.append(dst)
+                    ok += 1
+                except Exception:
+                    logging.exception("Finalize failure (mute)")
+                    temp_output.unlink(missing_ok=True)
+                    fail += 1
             else:
+                temp_output.unlink(missing_ok=True)
                 fail += 1
 
     click.secho(f"Completed → Success: {ok} | Failed: {fail}", fg="green")
+
 
 # ============================================================
 # IMAGE
@@ -375,36 +484,93 @@ def image(): pass
 @click.option("--force", is_flag=True)
 @click.pass_context
 def convert(ctx, pattern, format, force):
-    if format.lower() not in IMAGE_FORMATS:
-        raise click.ClickException("Unsupported image format")
+    import subprocess
+    from pathlib import Path
+
+    if not pattern:
+        raise click.ClickException("At least one input pattern must be provided.")
+
+    # Normalize and sanitize format
+    target_format = format.strip().lower().lstrip(".")
+    if not target_format.isalnum():
+        raise click.ClickException("Invalid format specified.")
 
     files = expand_inputs(pattern)
     if not files:
-        raise click.ClickException("No input files resolved")
+        raise click.ClickException("No input files resolved.")
 
-    ffmpeg = ctx.obj["ffmpeg"]
-    dry_run = ctx.obj["dry_run"]
+    # Validate source files defensively
+    valid_sources = []
+    for f in files:
+        if not isinstance(f, Path):
+            f = Path(f)
 
-    ok = fail = 0
+        if not f.exists():
+            click.secho(f"Skipping missing file: {f}", fg="yellow")
+            continue
 
-    with click.progressbar(files, label="Converting images") as bar:
+        if not f.is_file():
+            click.secho(f"Skipping non-file: {f}", fg="yellow")
+            continue
+
+        valid_sources.append(f)
+
+    if not valid_sources:
+        raise click.ClickException("No valid input files found.")
+
+    ffmpeg = ctx.obj.get("ffmpeg")
+    dry_run = ctx.obj.get("dry_run", False)
+
+    if not ffmpeg or not Path(ffmpeg).exists():
+        raise click.ClickException("Invalid ffmpeg binary configured.")
+
+    # Dynamically validate encoder support (prevents false 'unsupported format' failures)
+    try:
+        result = subprocess.run(
+            [str(ffmpeg), "-hide_banner", "-encoders"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True,
+        )
+        encoder_list = result.stdout.lower()
+        if target_format not in encoder_list:
+            raise click.ClickException(
+                f"Target format '{target_format}' is not supported by your ffmpeg build."
+            )
+    except subprocess.SubprocessError as e:
+        raise click.ClickException(f"Failed to validate ffmpeg encoders: {e}")
+
+    ok = 0
+    fail = 0
+
+    with click.progressbar(valid_sources, label="Converting images") as bar:
         for src in bar:
-            original = src
-            dst = src.with_name(src.stem + "." + format)
+            try:
+                dst = src.with_suffix(f".{target_format}")
 
-            if dst.exists() and not force:
-                dst = suggest_path(dst)
+                if dst.exists() and not force:
+                    dst = suggest_path(dst)
 
-            cmd = [str(ffmpeg), "-i", str(src), str(dst)]
+                cmd = [
+                    str(ffmpeg),
+                    "-y" if force else "-n",
+                    "-i", str(src),
+                    str(dst),
+                ]
 
-            if run_ffmpeg(cmd, dry_run):
-                backup_original(src)
-                CREATED_FILES.append(dst)
-                ok += 1
-            else:
+                if run_ffmpeg(cmd, dry_run):
+                    backup_original(src)
+                    CREATED_FILES.append(dst)
+                    ok += 1
+                else:
+                    fail += 1
+
+            except Exception as ex:
+                click.secho(f"Failed: {src} → {ex}", fg="red")
                 fail += 1
 
-    click.secho(f"Completed → Success: {ok} | Failed: {fail}", fg="green")
+    click.secho(f"Completed → Success: {ok} | Failed: {fail}", fg="green" if ok else "yellow")
 
 
 @image.command(help="Compress images intelligently.\nExample:\n avicore image compress *.jpg --quality 70")

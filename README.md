@@ -23,112 +23,199 @@ Download the latest `avicore.exe` from the [Releases Page](https://github.com/Sa
 ```
 That's it! Close PowerShell and open a new terminal. You can now type avicore from anywhere.
 
-📖 Command Reference
-🎬 Video Commands
-Commands for processing video files (.mp4, .mkv, .mov, .avi, etc.).
+# 📖 Command Reference
 
-1. Convert Single Video
-Intelligently converts a video to a new format. By default, it re-encodes to H.264/AAC to ensure compatibility.
+---
 
-Usage: avicore video convert [INPUT] [FORMAT]
+## 🎬 Video
 
-Example: avicore video convert movie.mkv mp4
+Supported formats: `mp4` `mkv` `mov` `avi` `webm` `m4v` `flv` `ts`
 
-Options:
+### Convert
 
---fast: Uses "Stream Copy" mode. Instant conversion but only works if codecs are compatible.
+Re-encodes a video to a new format using H.264/AAC for broad compatibility.
 
---force: Overwrite if file exists.
+```bash
+avicore video convert [FILE] [FORMAT]
+```
 
-2. Bulk Convert
-Converts all videos matching a pattern. Includes a progress bar and summary report.
+```bash
+# Single file
+avicore video convert movie.mkv mp4
 
-Usage: avicore video [PATTERN] [FORMAT]
+# Batch (quote the pattern on Windows)
+avicore video convert "*.mov" mp4
 
-Example: avicore video "*.mov" mp4
+# Stream copy — instant, but only works if codecs are already compatible
+avicore video convert movie.mkv mp4 --fast
 
-3. Mute Video
-Removes the audio track while keeping the video stream and subtitles intact. Does not re-encode video (Instant).
+# Overwrite existing output file
+avicore video convert movie.mkv mp4 --force
+```
 
-Usage: avicore video mute [INPUT]
+> **`--fast`** skips re-encoding and just remuxes the container. Much faster, but will silently fall back to full encoding if codecs are incompatible.
 
-Example: avicore video mute clip.mp4
+---
 
-🎵 Audio Commands
-Commands for processing audio files (.mp3, .wav, .flac, .aac, etc.).
+### Mute
 
-1. Extract Audio
-Rips the audio stream from a video file and saves it as a high-quality MP3 (192kbps).
+Strips the audio track. Video and subtitles are stream-copied (no re-encoding, instant).
 
-Usage: avicore audio extract [VIDEO_FILE]
+```bash
+avicore video mute [FILE]
+```
 
-Example: avicore audio extract lecture.mp4
+```bash
+# Single file
+avicore video mute clip.mp4
 
-2. Bulk Audio Convert
-Batch processes audio files with progress tracking.
+# Batch
+avicore video mute "*.mp4"
 
-Usage: avicore audio [PATTERN] [FORMAT]
+# Overwrite original
+avicore video mute clip.mp4 --force
+```
 
-Example: avicore audio "*.wav" mp3
+---
 
-🖼️ Image Commands
-Commands for processing images (.jpg, .png, .webp, etc.).
+## 🎵 Audio
 
-1. Smart Compress
-Reduces file size intelligently based on input type.
+Supported formats: `mp3` `wav` `aac` `flac` `ogg`
 
-JPG: Reduces Quality Factor (default 60%).
+### Extract
 
-PNG: Increases Compression Level (Lossless).
+Pulls the audio track from a video and saves it as a 192kbps MP3.
 
-Usage: avicore image compress [PATTERN] --quality [0-100]
+```bash
+avicore audio extract [VIDEO_FILE]
+```
 
-Example: avicore image compress "*.jpg" --quality 50
+```bash
+avicore audio extract lecture.mp4
+# Output: lecture.mp3
 
-2. Convert Image
-Changes image format (e.g., PNG to JPG, WebP to PNG).
+avicore audio extract lecture.mp4 --force   # overwrite if lecture.mp3 exists
+```
 
-Usage: avicore image convert [INPUT] [FORMAT]
+---
 
-Example: avicore image convert logo.png webp
+### Convert
 
-3. Bulk Image Convert
-Batch processes image files with progress tracking.
+Converts an audio file to a different format.
 
-Usage: avicore image [PATTERN] [FORMAT]
+```bash
+avicore audio convert [FILE] [FORMAT]
+```
 
-Example: avicore image "*.png" webp
+```bash
+avicore audio convert recording.wav mp3
+avicore audio convert podcast.flac aac --force
+```
 
-⚙️ Advanced Features
-🛡️ Safety Systems
-Smart Overwrite Protection: Avicore never overwrites files unless you force it. It will auto-suggest a new name (e.g., video_1.mp4).
+---
 
-Crash Cleanup: If you interrupt a conversion (Ctrl+C), Avicore deletes the corrupt partial file automatically.
+## 🖼️ Image
 
-Self-Diagnostic: On every run, Avicore checks its internal engine integrity.
+Supported formats: `jpg` `jpeg` `png` `webp` `bmp`
 
-🐛 Debugging
-If a file fails to convert, use the verbose flag to generate a detailed log file:
+### Compress
 
-Bash
+Reduces file size. Behaviour differs by type:
+
+- **JPG / WEBP** — adjusts quality factor (lossy). Default quality: `60`.
+- **PNG** — sets compression level to maximum (lossless, no quality loss).
+
+```bash
+avicore image compress [PATTERN] --quality [0–100]
+```
+
+```bash
+# Compress all JPGs at default quality (60)
+avicore image compress "*.jpg"
+
+# Lower quality = smaller file
+avicore image compress "*.jpg" --quality 40
+
+# Overwrite originals
+avicore image compress "*.jpg" --force
+```
+
+---
+
+### Convert
+
+Changes an image to a different format.
+
+```bash
+avicore image convert [PATTERN] [FORMAT]
+```
+
+```bash
+# Single file
+avicore image convert logo.png webp
+
+# Batch
+avicore image convert "*.png" webp
+
+# Overwrite existing output files
+avicore image convert "*.png" webp --force
+```
+
+---
+
+## ⚙️ Global Options
+
+These flags work with any command.
+
+| Flag | Effect |
+|------|--------|
+| `--dry-run` | Prints the FFmpeg commands without running them. Safe way to preview what will happen. |
+| `--verbose` | Writes detailed FFmpeg output to `avicore.log` in the current folder. Use this when a file fails. |
+
+```bash
+# Preview a batch conversion without touching any files
+avicore --dry-run video convert "*.mkv" mp4
+
+# Debug a failing conversion
 avicore --verbose video convert broken.mp4 mp4
-This creates avicore.log in your temp folder with full FFmpeg error data.
+```
 
-🛠️ Build from Source (Developers Only)
-If you want to modify the code yourself:
+---
 
-Clone Repo: git clone https://github.com/Sahil524/avicore
+## 🛡️ File Safety
 
-Install Requirements: pip install click pyinstaller
+- **Originals are always backed up.** Before any operation, the source file is moved to a `./backup/` folder in the same directory. Nothing is deleted.
+- **Overwrite protection is on by default.** If the output file already exists, avicore renames the new file (e.g. `video_1.mp4`) instead of overwriting. Use `--force` to override this.
+- **Partial files are cleaned up automatically.** If you cancel with `Ctrl+C`, any incomplete output file is deleted.
 
-Download Engine:
+---
 
-Download FFmpeg Static Binary from gyan.dev.
+## 🛠️ Build from Source
 
-Extract ffmpeg.exe and place it in a bin/ folder inside the project.
+For developers who want to modify or package avicore.
 
-Build:
+**1. Clone the repo**
+```bash
+git clone https://github.com/Sahil524/avicore
+```
 
-PowerShell
+**2. Install dependencies**
+```bash
+pip install click pyinstaller
+```
+
+**3. Add the FFmpeg engine**
+
+Download a static FFmpeg binary from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/), extract `ffmpeg.exe`, and place it at:
+```
+avicore/
+└── bin/
+    └── ffmpeg.exe
+```
+
+**4. Build**
+```bash
 python -m PyInstaller --onefile --add-binary "bin/ffmpeg.exe;." --name avicore --clean app.py
-Output: The binary will be in dist/.
+```
+
+The final binary will be at `dist/avicore.exe`.

@@ -1,9 +1,31 @@
-# Ignore build artifacts
-dist/
-build/
-*.spec
-
-# Ignore binary dependencies
-bin/
+# Python / Bytecode
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build & Distribution Artifacts
+build/
+dist/
+*.spec.old
+
+# Binaries
+/context_menu.exe
+/bin/ffmpeg.exe
+
+# Logs, Spool & Diagnostics
 *.log
+*.zip
+avicore_spool.txt
+capabilities.json
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE & Operating System Artifacts
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

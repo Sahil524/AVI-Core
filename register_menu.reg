@@ -1,0 +1,327 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================
+; IMAGE FORMATS CONTEXT MENU (HKLM)
+; ============================================================
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore]
+"MUIVerb"="AVI Core"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; --- Convert Submenu ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert]
+"MUIVerb"="Convert"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\JPG]
+"MUIVerb"="Convert To JPG"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.jpg"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\JPG\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"jpg\" \"%1\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\JPEG]
+"MUIVerb"="Convert To JPEG"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.jpeg"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\JPEG\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"jpeg\" \"%1\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\PNG]
+"MUIVerb"="Convert To PNG"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.png"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\PNG\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"png\" \"%1\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\WEBP]
+"MUIVerb"="Convert To WEBP"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.webp"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\WEBP\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"webp\" \"%1\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\BMP]
+"MUIVerb"="Convert To BMP"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.bmp"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\1_Convert\shell\BMP\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"bmp\" \"%1\""
+
+; --- Other Image Actions ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\2_Compress]
+"MUIVerb"="Compress Image"
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\AVICore\shell\2_Compress\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"compress\" \"none\" \"%1\""
+
+
+; ============================================================
+; VIDEO CONTEXT MENU (HKLM)
+; ============================================================
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore]
+"MUIVerb"="AVI Core"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; --- Convert Submenu ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert]
+"MUIVerb"="Convert"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; MP4
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MP4]
+"MUIVerb"="Convert To MP4"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mp4"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MP4\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"mp4\" \"%1\""
+
+; MKV
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MKV]
+"MUIVerb"="Convert To MKV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mkv"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MKV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"mkv\" \"%1\""
+
+; MOV
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MOV]
+"MUIVerb"="Convert To MOV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mov"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\MOV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"mov\" \"%1\""
+
+; AVI
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\AVI]
+"MUIVerb"="Convert To AVI"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.avi"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\AVI\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"avi\" \"%1\""
+
+; WEBM
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\WEBM]
+"MUIVerb"="Convert To WEBM"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.webm"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\WEBM\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"webm\" \"%1\""
+
+; M4V
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\M4V]
+"MUIVerb"="Convert To M4V"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.m4v"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\M4V\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"m4v\" \"%1\""
+
+; FLV
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\FLV]
+"MUIVerb"="Convert To FLV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.flv"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\FLV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"flv\" \"%1\""
+
+; TS
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\TS]
+"MUIVerb"="Convert To TS"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.ts"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\1_Convert\shell\TS\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"ts\" \"%1\""
+
+
+; --- Fast Convert Submenu ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert]
+"MUIVerb"="Fast Convert"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; MP4 (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MP4]
+"MUIVerb"="Fast Convert To MP4"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mp4"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MP4\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"mp4\" \"%1\""
+
+; MKV (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MKV]
+"MUIVerb"="Fast Convert To MKV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mkv"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MKV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"mkv\" \"%1\""
+
+; MOV (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MOV]
+"MUIVerb"="Fast Convert To MOV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mov"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\MOV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"mov\" \"%1\""
+
+; AVI (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\AVI]
+"MUIVerb"="Fast Convert To AVI"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.avi"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\AVI\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"avi\" \"%1\""
+
+; WEBM (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\WEBM]
+"MUIVerb"="Fast Convert To WEBM"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.webm"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\WEBM\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"webm\" \"%1\""
+
+; M4V (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\M4V]
+"MUIVerb"="Fast Convert To M4V"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.m4v"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\M4V\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"m4v\" \"%1\""
+
+; FLV (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\FLV]
+"MUIVerb"="Fast Convert To FLV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.flv"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\FLV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"flv\" \"%1\""
+
+; TS (Fast)
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\TS]
+"MUIVerb"="Fast Convert To TS"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.ts"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\2_FastConvert\shell\TS\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"fast-convert\" \"ts\" \"%1\""
+
+
+; --- Other Video Actions ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\3_RemoveAudio]
+"MUIVerb"="Remove Audio"
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\3_RemoveAudio\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"mute\" \"none\" \"%1\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\4_ExtractMP3]
+"MUIVerb"="Extract MP3"
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\video\shell\AVICore\shell\4_ExtractMP3\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"extract-audio\" \"none\" \"%1\""
+
+
+; ============================================================
+; AUDIO FORMATS CONTEXT MENU (HKLM)
+; ============================================================
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore]
+"MUIVerb"="AVI Core"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; --- Convert Submenu ---
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert]
+"MUIVerb"="Convert"
+"SubCommands"=""
+"MultiSelectModel"="Player"
+"Icon"="\"C:\\Program Files\\AVI Core\\logo.ico\""
+
+; MP3
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\MP3]
+"MUIVerb"="Convert To MP3"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.mp3"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\MP3\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"mp3\" \"%1\""
+
+; WAV
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\WAV]
+"MUIVerb"="Convert To WAV"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.wav"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\WAV\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"wav\" \"%1\""
+
+; AAC
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\AAC]
+"MUIVerb"="Convert To AAC"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.aac"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\AAC\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"aac\" \"%1\""
+
+; FLAC
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\FLAC]
+"MUIVerb"="Convert To FLAC"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.flac"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\FLAC\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"flac\" \"%1\""
+
+; OGG
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\OGG]
+"MUIVerb"="Convert To OGG"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.ogg"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\OGG\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"ogg\" \"%1\""
+
+; M4A
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\M4A]
+"MUIVerb"="Convert To M4A"
+"MultiSelectModel"="Player"
+"AppliesTo"="NOT System.FileExtension:=.m4a"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\audio\shell\AVICore\shell\1_Convert\shell\M4A\command]
+@="\"C:\\Program Files\\AVI Core\\context_menu.exe\" \"convert\" \"m4a\" \"%1\""

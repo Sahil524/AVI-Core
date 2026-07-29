@@ -17,9 +17,7 @@ CONTAINER_MAP: dict[str, dict[str, str | None]] = {
 }
 
 
-def resolve_best_video_encoder(
-    target_format: str, default_codec: str, caps: HWCapabilities | None = None
-) -> str:
+def resolve_best_video_encoder(target_format: str, default_codec: str, caps: HWCapabilities | None = None) -> str:
     """Select optimal video encoder with graceful GPU fallback chain (NVENC -> QSV -> AMF -> CPU)."""
     if not caps or target_format == "webm" or default_codec != "libx264":
         return default_codec

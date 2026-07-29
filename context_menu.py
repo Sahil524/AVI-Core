@@ -304,8 +304,12 @@ def execute_command(cmd: list[str], file_path: Path, action: str) -> subprocess.
             timeout=7200,
         )
     except subprocess.TimeoutExpired as exc:
-        stdout_val = exc.stdout.decode("utf-8", errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
-        stderr_val = exc.stderr.decode("utf-8", errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "Timeout")
+        stdout_val = (
+            exc.stdout.decode("utf-8", errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+        )
+        stderr_val = (
+            exc.stderr.decode("utf-8", errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "Timeout")
+        )
 
         logger.error(
             "Action: %s | File: %s | Command: %s | Result: FAILURE | Details: Process timed out after 7200 seconds. Out: %s, Err: %s",  # noqa: E501
@@ -638,16 +642,16 @@ def register_menu_keys(register: bool = True) -> bool:
                 set_val(fk, "MultiSelectModel", "Player")
                 set_val(f"{fk}\\command", "", f'"{exe_path}" "fast-convert" "{fmt}" "%1"')
 
-            # Remove Audio
-            mk = f"{base}\\shell\\3_RemoveAudio"
-            set_val(mk, "MUIVerb", "Remove Audio")
+            # Mute Audio
+            mk = f"{base}\\shell\\3_MuteAudio"
+            set_val(mk, "MUIVerb", "Mute Audio")
             set_val(mk, "MultiSelectModel", "Player")
             set_val(mk, "Icon", f'"{logo_path}"')
             set_val(f"{mk}\\command", "", f'"{exe_path}" "mute" "none" "%1"')
 
-            # Extract MP3
-            ek = f"{base}\\shell\\4_ExtractMP3"
-            set_val(ek, "MUIVerb", "Extract MP3")
+            # Extract Audio
+            ek = f"{base}\\shell\\4_ExtractAudio"
+            set_val(ek, "MUIVerb", "Extract Audio")
             set_val(ek, "MultiSelectModel", "Player")
             set_val(ek, "Icon", f'"{logo_path}"')
             set_val(f"{ek}\\command", "", f'"{exe_path}" "extract-audio" "none" "%1"')

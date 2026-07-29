@@ -368,12 +368,14 @@ def video_mute(ctx: click.Context, input: tuple[str, ...], force: bool) -> None:
         if not src.exists() or not src.is_file():
             return False, f"Invalid source file: {src.name}"
 
-        dst = src
-        temp_output = src.with_name(src.stem + "_muted_tmp" + src.suffix)
+        if force:
+            dst = src
+        else:
+            dst = src.with_name(src.stem + "_muted" + src.suffix)
+            if dst.exists():
+                dst = suggest_path(dst)
 
-        if dst.exists() and not force:
-            return False, f"Use --force to overwrite: {dst.name}"
-
+        temp_output = dst.with_name(dst.stem + "_muted_tmp" + dst.suffix)
         temp_output.unlink(missing_ok=True)
 
         cmd = [
@@ -586,7 +588,7 @@ def audio():
 
 @audio.command(
     "extract",
-    help="Extract audio from video as MP3 (192kbps).\n\nExample:\n  avicore audio extract input.mp4",
+    help="Extract audio from video.\n\nExample:\n  avicore audio extract input.mp4",
 )
 @click.argument("input")
 @click.option("--force", is_flag=True, help="Overwrite existing files.")
@@ -596,29 +598,59 @@ def audio_extract(ctx: click.Context, input: str, force: bool) -> None:
     if not src.exists():
         raise click.ClickException(f"Input not found: {src}")
 
-    dst = src.with_suffix(".mp3")
+    ffmpeg: Path = ctx.obj["ffmpeg"]
+    dry_run = ctx.obj["dry_run"]
+
+    src_info = probe_media_file(src, ffmpeg)
+    if not src_info.has_audio or not src_info.primary_audio:
+        raise click.ClickException("Input file has no audio stream to extract.")
+
+    codec = src_info.primary_audio.codec.lower()
+
+    AUDIO_EXTENSION_MAP = {
+        "aac": ".m4a",
+        "mp3": ".mp3",
+        "opus": ".opus",
+        "vorbis": ".ogg",
+        "flac": ".flac",
+        "ac3": ".ac3",
+        "dts": ".dts",
+        "alac": ".m4a",
+    }
+    ext = AUDIO_EXTENSION_MAP.get(codec, ".mp3")
+
+    dst = src.with_suffix(ext)
     if dst.exists() and not force:
         dst = suggest_path(dst)
 
     temp_output = dst.with_name(dst.stem + "_ext_tmp" + dst.suffix)
-    ffmpeg: Path = ctx.obj["ffmpeg"]
-    dry_run = ctx.obj["dry_run"]
 
-    cmd = [
-        str(ffmpeg),
-        "-y",
-        "-i",
-        str(src),
-        "-vn",
-        "-ab",
-        "192k",
-        "-map",
-        "a",
-        str(temp_output),
-    ]
+    if ext != ".mp3" or codec == "mp3":
+        cmd = [
+            str(ffmpeg),
+            "-y",
+            "-i",
+            str(src),
+            "-vn",
+            "-c:a",
+            "copy",
+            str(temp_output),
+        ]
+    else:
+        cmd = [
+            str(ffmpeg),
+            "-y",
+            "-i",
+            str(src),
+            "-vn",
+            "-ab",
+            "192k",
+            "-map",
+            "a",
+            str(temp_output),
+        ]
 
     if run_ffmpeg(cmd, dry_run):
-        src_info = probe_media_file(src, ffmpeg)
         success, _err_msg = commit_two_phase_output(
             temp_output=temp_output,
             final_dst=dst,

@@ -2,80 +2,177 @@
 
 ![Version](https://img.shields.io/badge/version-2.0.0-blue.svg) ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey) ![License](https://img.shields.io/badge/license-MIT-green)
 
-**AVI Core** is a hardened, production-grade command-line tool and Windows Explorer context menu media processing platform. It wraps FFmpeg into intelligent, human-readable commands for video, audio, and image processing with zero-data-loss two-phase atomic commits, dynamic GPU acceleration, and container-aware metadata rules.
+**AVI Core** is a hardened, production-grade media processing tool that wraps the power of FFmpeg into simple, human-readable commands. It supports video, audio, and image processing through both a command-line interface and native Windows File Explorer integration, allowing you to process media directly from the right-click menu.
 
 ---
 
-## ⚡ Features & Capabilities
+# ⚡ Quick Install (Windows)
 
-- **Intelligent Media Probing**: Media-aware stream analysis (`ffprobe`) preventing color distortion on HDR content and audio stream drops.
-- **Hardware Acceleration**: Automatic GPU encoder detection and fallback chain (`NVENC` ➔ `QSV` ➔ `AMF` ➔ `CPU`).
-- **Two-Phase Atomic Commit**: Encodes to `.tmp_output`, verifies stream integrity and duration parity, and safely moves originals to `./backup/`.
-- **Conversion Profiles Engine**: Built-in presets for YouTube, Instagram, TikTok, Discord, WhatsApp, Lossless Archival, and Web Optimization.
-- **Container-Aware Metadata Engine**: Preserves EXIF, ICC profiles, GPS, chapters, and cover art according to target container capability.
-- **Zero-Daemon Batch Execution**: Parallel worker scheduling throttled dynamically by CPU and RAM resource monitoring.
-- **Diagnostics Framework**: Single-command diagnostic bundle ZIP generator (`avicore system diagnostics`).
+You do not need Python or FFmpeg installed. AVI Core is completely standalone.
+
+### Step 1: Download
+
+Download the latest **AVI Core Installer** from the [Releases Page](https://github.com/Sahil524/avicore/releases).
+
+### Step 2: Install
+
+Run the installer and follow the setup wizard.
+
+The installer automatically:
+
+* Installs AVI Core
+* Adds AVI Core to your system PATH
+* Registers the Windows File Explorer context menu
+* Configures the application for immediate use
+
+That's it! After installation, you can use AVI Core directly from Command Prompt, PowerShell, Windows Terminal, or simply by right-clicking supported media files in File Explorer.
 
 ---
 
-## 📖 Command Reference
+# 📂 Windows Explorer Context Menu
 
-### 🎬 Video Commands
+AVI Core now integrates directly with Windows File Explorer.
+
+Simply right-click a supported media file to access AVI Core without opening a terminal.
+
+### 🖼️ Image Files
+
+Available actions include:
+
+* Convert to JPG
+* Convert to JPEG
+* Convert to PNG
+* Convert to WebP
+* Convert to BMP
+* Compress Image
+
+### 🎬 Video Files
+
+Available actions include:
+
+* Convert Video
+* Extract Audio
+* Remove Audio (Mute Video)
+
+The context menu is dynamic and displays only the operations supported for the selected file type.
+
+---
+
+# 📖 Command Reference
+
+## 🎬 Video Commands
+
+### Convert Video
+
+Converts a video to another supported format.
+
+**Usage**
+
 ```bash
-# Convert video to MP4 (auto-detects NVENC / QSV / AMF GPU hardware)
+avicore video convert [INPUT] [FORMAT]
+```
+
+**Example**
+
+```bash
 avicore video convert movie.mkv mp4
+```
 
-# Stream copy (instant container remuxing without re-encoding)
-avicore video convert clip.mkv mp4 --fast
+**Options**
 
-# Mute video (removes audio streams safely without quality loss)
+* `--fast` — Uses stream copy when possible.
+* `--force` — Overwrites existing files.
+
+---
+
+### Mute Video
+
+Removes the audio stream while preserving the video.
+
+```bash
 avicore video mute clip.mp4
 ```
 
-### 🖼️ Image Commands
-```bash
-# Convert PNG image to WebP format
-avicore image convert logo.png webp
+---
 
-# Compress JPG image at specified quality factor (default: 60)
-avicore image compress "*.jpg" --quality 75
+## 🎵 Audio Commands
+
+### Extract Audio
+
+```bash
+avicore audio extract lecture.mp4
 ```
 
-### 🎵 Audio Commands
-```bash
-# Extract 192kbps MP3 audio from video
-avicore audio extract lecture.mp4
+### Convert Audio
 
-# Convert audio format
+```bash
 avicore audio convert recording.wav mp3
 ```
 
-### ⚙️ Diagnostics & Global Flags
+---
+
+## 🖼️ Image Commands
+
+### Compress Image
+
 ```bash
-# Generate a ZIP support bundle containing system specs and logs
-avicore system diagnostics
+avicore image compress image.jpg --quality 75
+```
 
-# Preview commands without executing
-avicore --dry-run video convert clip.mkv mp4
+### Convert Image
 
-# Enable verbose logging
-avicore --verbose video convert clip.mkv mp4
+```bash
+avicore image convert logo.png webp
 ```
 
 ---
 
-## 🛠️ Build from Source
+# ⚙️ Advanced Features
+
+## 🛡️ Safety Systems
+
+* Smart overwrite protection
+* Automatic cleanup of interrupted conversions
+* Dynamic Windows Explorer context menu
+* Standalone embedded FFmpeg engine
+* Automatic output naming to prevent accidental overwrites
+
+---
+
+## 🐛 Debugging
+
+Generate verbose logs for troubleshooting.
+
+```bash
+avicore --verbose video convert broken.mp4 mp4
+```
+
+---
+
+# 🛠️ Build from Source
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/Sahil524/avicore.git
-cd avicore
-pip install -r requirements.txt pyinstaller
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Build the executables:
+
+```powershell
 powershell -ExecutionPolicy Bypass -File build_binaries.ps1
 ```
 
-The final output executables will be generated at `dist/avicore/avicore.exe` and `dist/context_menu.exe`.
+Compiled binaries will be available in the `dist/` directory.
 
 ---
 
-## 📄 License
-MIT License.
+# 📄 License
+
+This project is licensed under the MIT License.

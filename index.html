@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVI Core — Offline Media Converter for Windows</title>
+  <link rel="icon" type="image/webp" href="./logo.webp" />
+
+  <!-- Primary SEO Meta Tags -->
+  <meta name="description"
+    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration. Convert MKV, MP4, PNG, WEBP instantly with AVI Core." />
+  <meta name="keywords"
+    content="offline video converter Windows, free Windows media converter, right click video converter, offline MP4 converter, MKV converter Windows, AVI Core converter, best offline media converter, Windows context menu converter" />
+  <meta name="author" content="AVI Core" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://sahil524.github.io/AVI-Core/" />
+
+  <!-- OpenGraph / Facebook / Discord / Slack -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sahil524.github.io/AVI-Core/" />
+  <meta property="og:title" content="AVI Core — Offline Media Converter for Windows" />
+  <meta property="og:description"
+    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+  <meta property="og:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+  <meta property="og:site_name" content="AVI Core" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://sahil524.github.io/AVI-Core/" />
+  <meta name="twitter:title" content="AVI Core — Offline Media Converter for Windows" />
+  <meta name="twitter:description"
+    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+  <meta name="twitter:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AVI Core",
+  "operatingSystem": "Windows",
+  "applicationCategory": "MultimediaApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Free offline video converter & media conversion tool for Windows with native right-click context menu integration.",
+  "downloadUrl": "https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
+}
+</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+    rel="stylesheet" />
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --neon: #f1ab01;
+      --panel: #0A0A0A;
+      --line: #2A2A2A;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #root {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    ::selection {
+      background: var(--neon);
+      color: #000000;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .font-mono-x {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-neon {
+      color: var(--neon);
+    }
+
+    .bg-panel {
+      background-color: var(--panel);
+    }
+
+    .border-line {
+      border-color: var(--line);
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--neon);
+      outline-offset: 4px;
+    }
+
+    .blink {
+      animation: blink 1.1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .btn-hard {
+      border: 1px solid #FFFFFF;
+      background: transparent;
+      color: #FFFFFF;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+    }
+
+    .btn-hard:hover {
+      color: #000000;
+      background: var(--neon);
+      border-color: var(--neon);
+      box-shadow: 0 0 25px rgba(241, 171, 1, 0.4);
+    }
+
+    /* Technical Grid Pattern */
+    .bg-grid-pattern {
+      background-size: 48px 48px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Scanline effect for terminal */
+    .scanlines {
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 50%,
+          rgba(0, 0, 0, 0.35) 50%,
+          rgba(0, 0, 0, 0.35));
+      background-size: 100% 4px;
+    }
+
+    body.has-custom-cursor,
+    body.has-custom-cursor a,
+    body.has-custom-cursor button {
+      cursor: none;
+    }
+
+    @media (pointer: coarse) {
+
+      body.has-custom-cursor,
+      body.has-custom-cursor a,
+      body.has-custom-cursor button {
+        cursor: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const FM = window.Motion || window.framerMotion;
+    const { motion, AnimatePresence, useMotionValue, useSpring, useInView, useTransform } = FM;
+    const MotionConfig = FM.MotionConfig || (({ children }) => children);
+
+    const EASE = [0.16, 1, 0.3, 1];
+
+    /* ---------- Global Scroll Progress Indicator ---------- */
+    function ScrollProgress() {
+      const { scrollYProgress } = FM.useScroll();
+      const scaleX = useSpring(scrollYProgress, { stiffness: 400, damping: 30, restDelta: 0.001 });
+
+      return (
+        <motion.div
+          style={{ scaleX, transformOrigin: "left" }}
+          className="fixed top-0 left-0 right-0 h-[3px] bg-neon z-[99999] pointer-events-none shadow-[0_0_14px_rgba(241,171,1,0.7)]"
+        />
+      );
+    }
+
+    /* ---------- Step-sequence loop ---------- */
+    function useStepLoop(durations, active) {
+      const [step, setStep] = React.useState(0);
+      React.useEffect(() => {
+        if (!active) {
+          setStep(0);
+          return;
+        }
+        let cancelled = false;
+        let timeoutId = null;
+        function run(i) {
+          timeoutId = setTimeout(() => {
+            if (cancelled) return;
+            const next = (i + 1) % durations.length;
+            setStep(next);
+            run(next);
+          }, durations[i]);
+        }
+        setStep(0);
+        run(0);
+        return () => {
+          cancelled = true;
+          if (timeoutId) clearTimeout(timeoutId);
+        };
+      }, [active, durations]);
+      return step;
+    }
+
+    /* ---------- Shared scroll-linked reveal ---------- */
+    function Reveal({ children, className = "", delay = 0, y = 24, as = "div" }) {
+      const Tag = motion[as] || motion.div;
+      return (
+        <Tag
+          className={className}
+          initial={{ opacity: 0, y }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: EASE, delay: delay / 1000 }}
+        >
+          {children}
+        </Tag>
+      );
+    }
+
+    /* ---------- Reusable Magnetic Button ---------- */
+    function MagneticButton({ children, href, className = "", ariaLabel, target, rel }) {
+      const ref = React.useRef(null);
+      const x = useMotionValue(0);
+      const y = useMotionValue(0);
+      const springX = useSpring(x, { stiffness: 180, damping: 14, mass: 0.1 });
+      const springY = useSpring(y, { stiffness: 180, damping: 14, mass: 0.1 });
+
+      const handleMouseMove = (e) => {
+        if (!ref.current || window.matchMedia("(pointer: coarse)").matches) return;
+        const rect = ref.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distanceX = e.clientX - centerX;
+        const distanceY = e.clientY - centerY;
+
+        x.set(distanceX * 0.22);
+        y.set(distanceY * 0.22);
+      };
+
+      const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+      };
+
+      return (
+        <motion.a
+          ref={ref}
+          href={href}
+          target={target}
+          rel={rel}
+          aria-label={ariaLabel}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ x: springX, y: springY, willChange: "transform" }}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.96 }}
+          className={`btn-hard relative inline-block px-9 py-4 font-mono-x text-sm tracking-[0.15em] uppercase select-none ${className}`}
+        >
+          {children}
+        </motion.a>
+      );
+    }
+
+    /* ---------- Icons ---------- */
+    function Logo({ size = 120 }) {
+      return (
+        <img
+          width={size}
+          height={size}
+          src="./logo.webp"
+          alt="AVI Core Logo - Offline Media Converter for Windows"
+          loading="lazy"
+          decoding="async"
+          className="object-contain"
+        />
+      );
+    }
+
+    function FileGlyph({ image = false, size = 44 }) {
+      return (
+        <svg width={size} height={size * 1.2} viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+          <path d="M4 2H26L36 12V46H4V2Z" stroke="#FFFFFF" strokeWidth="1.4" strokeLinejoin="miter" />
+          <path d="M26 2V12H36" stroke="#FFFFFF" strokeWidth="1.4" strokeLinejoin="miter" />
+          {image && (
+            <g stroke="#f1ab01" strokeWidth="1.3">
+              <circle cx="14" cy="26" r="2.6" />
+              <path d="M8 38L17 28L23 34L32 24V42H8V38Z" />
+            </g>
+          )}
+        </svg>
+      );
+    }
+
+    function FolderGlyph({ size = 64 }) {
+      return (
+        <svg width={size} height={size * 0.78} viewBox="0 0 64 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+          <path d="M2 8H24L29 14H62V46H2V8Z" stroke="#FFFFFF" strokeWidth="1.6" strokeLinejoin="miter" />
+          <path d="M2 8V46" stroke="#FFFFFF" strokeWidth="1.6" />
+        </svg>
+      );
+    }
+
+    function CursorGlyph({ size = 22 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" className="drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+          <path d="M4 3L20 12L12.5 13.5L10 21L4 3Z" fill="#FFFFFF" stroke="#000000" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
+      );
+    }
+
+    /* ---------- Shared Glass Context Menu ---------- */
+    function ContextMenu({ show, selected, clicked, style }) {
+      return (
+        <AnimatePresence>
+          {show && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: -6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -6 }}
+              transition={{ duration: 0.25, ease: EASE }}
+              style={{ position: "absolute", zIndex: 30, ...style }}
+              className="w-32 border border-white/15 bg-panel/95 backdrop-blur-md shadow-[0_12px_36px_rgba(0,0,0,0.85)] font-mono-x text-[10px] tracking-wide"
+              aria-hidden="true"
+            >
+              <div className="px-3 py-2 flex items-center justify-between text-white/80 border-b border-white/10">
+                <span>AVI CORE</span>
+                <motion.span animate={{ x: selected ? [0, 2, 0] : 0 }} transition={{ repeat: Infinity, duration: 1.2 }}>▸</motion.span>
+              </div>
+              <motion.div
+                animate={{
+                  backgroundColor: clicked
+                    ? "rgba(241,171,1,0.3)"
+                    : selected
+                      ? "rgba(241,171,1,0.14)"
+                      : "rgba(0,0,0,0)",
+                  color: selected || clicked ? "#f1ab01" : "rgba(255,255,255,0.6)",
+                }}
+                transition={{ duration: 0.2 }}
+                className="px-3 py-2"
+              >
+                Convert
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      );
+    }
+
+    /* ---------- Bulk Conversion Visual ---------- */
+    function BulkConversionVisual() {
+      const files = ["photo_1", "photo_2", "photo_3", "photo_4"];
+      const ref = React.useRef(null);
+      const inView = useInView(ref, { amount: 0.4, once: false });
+
+      const durations = React.useMemo(() => [500, 900, 450, 600, 500, 900, 1100], []);
+      const step = useStepLoop(durations, inView);
+
+      const cursorTargets = [
+        { left: "-6%", top: "34%", opacity: 0 },
+        { left: "80%", top: "34%", opacity: 1 },
+        { left: "82%", top: "34%", opacity: 1 },
+        { left: "84%", top: "46%", opacity: 1 },
+        { left: "84%", top: "58%", opacity: 1 },
+        { left: "84%", top: "58%", opacity: 0.3 },
+        { left: "84%", top: "58%", opacity: 0 },
+      ];
+      const cursorTarget = cursorTargets[step];
+      const cursorDuration = step === 1 ? 0.9 : 0.35;
+
+      const boxVisible = step >= 1 && step <= 5;
+      const menuVisible = step >= 2 && step <= 4;
+      const menuSelected = step >= 3;
+      const menuClicked = step === 4;
+      const converting = step === 5;
+      const done = step === 6;
+      const filesSelected = step >= 1;
+
+      return (
+        <div ref={ref} aria-label="Interactive bulk conversion visual demonstration" className="relative inline-block mb-16 md:mb-18 pt-4 pb-6 select-none">
+          {/* Windows Selection Outline & Glow */}
+          <motion.div
+            animate={{ scaleX: boxVisible ? 1 : 0, opacity: boxVisible ? 1 : 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            style={{ transformOrigin: "left", borderColor: "var(--neon)", background: "rgba(241,171,1,0.08)", willChange: "transform, opacity" }}
+            className="absolute -inset-x-2 -inset-y-2 border border-dashed pointer-events-none shadow-[0_0_25px_rgba(241,171,1,0.15)]"
+          />
+
+          {/* Real-time status pill indicator */}
+          <AnimatePresence>
+            {converting && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="absolute -top-7 left-1/2 -translate-x-1/2 font-mono-x text-[9px] tracking-widest text-neon uppercase bg-[#0A0A0A] px-3 py-1 border border-neon/40 shadow-[0_0_12px_rgba(241,171,1,0.3)] flex items-center gap-1.5 whitespace-nowrap z-20"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-neon animate-ping" />
+                <span>Processing 4 files locally...</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="relative z-10 flex gap-6 sm:gap-10">
+            {files.map((name, i) => (
+              <div key={name} className="flex flex-col items-center gap-2.5 group">
+                <motion.div
+                  className="relative border border-transparent p-1 transition-all duration-300"
+                  animate={{
+                    borderColor: filesSelected ? "var(--neon)" : "rgba(0,0,0,0)",
+                    boxShadow: filesSelected ? "0 0 18px rgba(241,171,1,0.25)" : "none",
+                    scale: filesSelected ? 1.05 : 1
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FileGlyph image />
+                  <AnimatePresence>
+                    {converting && (
+                      <motion.div
+                        initial={{ scaleX: 0, opacity: 1 }}
+                        animate={{ scaleX: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
+                        style={{ transformOrigin: "left", background: "var(--neon)", willChange: "transform" }}
+                        className="absolute -bottom-1 left-0 h-[2px] w-full shadow-[0_0_8px_var(--neon)]"
+                      />
+                    )}
+                  </AnimatePresence>
+                  <AnimatePresence>
+                    {done && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.4 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3, delay: i * 0.06, ease: EASE }}
+                        style={{ background: "#000", borderColor: "var(--neon)" }}
+                        className="absolute -top-1.5 -right-1.5 w-4 h-4 flex items-center justify-center border shadow-[0_0_8px_rgba(241,171,1,0.5)]"
+                      >
+                        <span className="text-neon text-[9px] leading-none">✓</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+                <span className="font-mono-x text-[10px] sm:text-[11px] tracking-wide relative inline-flex">
+                  <span className={done ? "text-neon" : "text-white/60"}>{name}.</span>
+                  <span className="relative inline-block" style={{ width: "2.4em" }}>
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={done ? "webp" : "png"}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.25, ease: EASE }}
+                        className={`absolute left-0 top-0 ${done ? "text-neon font-bold" : "text-white/60"}`}
+                      >
+                        {done ? "webp" : "png"}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <motion.div
+            animate={cursorTarget}
+            transition={{ duration: cursorDuration, ease: EASE }}
+            style={{ position: "absolute", zIndex: 40, willChange: "transform, opacity" }}
+          >
+            <CursorGlyph />
+          </motion.div>
+
+          <ContextMenu
+            show={menuVisible}
+            selected={menuSelected}
+            clicked={menuClicked}
+            style={{ left: "82%", top: "36%" }}
+          />
+        </div>
+      );
+    }
+
+    /* ---------- Upgraded Backup Visual ---------- */
+    function BackupVisual() {
+      const ref = React.useRef(null);
+      const inView = useInView(ref, { amount: 0.4, once: false });
+
+      // steps: 0 idle -> 1 cursor clicks -> 2 menu opens -> 3 convert selected -> 4 backup appears -> 5 file moves in -> 6 converted appears -> 7 hold
+      const durations = React.useMemo(() => [600, 600, 700, 600, 800, 1000, 800, 1400], []);
+      const step = useStepLoop(durations, inView);
+
+      const fileMoving = step === 5;
+      const fileGone = step >= 6;
+      const folderActive = step >= 4;
+      const folderPulse = step === 5;
+      const outputVisible = step >= 6;
+      const cursorVisible = step >= 1 && step <= 3;
+      const menuVisible = step >= 2 && step <= 3;
+      const menuSelected = step === 3;
+      const doneBadges = step >= 6;
+
+      return (
+        <div ref={ref} aria-label="Automatic raw file backup visual demonstration" className="flex flex-col items-center gap-8 py-4 select-none w-full max-w-md mx-auto">
+          <div className="relative flex flex-col items-center justify-center gap-2.5 h-24 w-full">
+            {/* Source file */}
+            <motion.div
+              animate={{
+                opacity: fileGone ? 0 : fileMoving ? 0.25 : 1,
+                y: fileMoving ? 54 : 0,
+                scale: fileMoving ? 0.45 : 1,
+              }}
+              transition={{ duration: fileMoving ? 0.8 : 0.35, ease: EASE }}
+              style={{ willChange: "transform, opacity" }}
+              className="flex flex-col items-center gap-2.5 z-10"
+            >
+              <FileGlyph image />
+              <span className="font-mono-x text-[10px] sm:text-[11px] tracking-wide text-white/70">clip.mov</span>
+            </motion.div>
+
+            {/* Cursor */}
+            <motion.div
+              animate={{ opacity: cursorVisible ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: EASE }}
+              style={{ position: "absolute", right: "28%", top: "12px", zIndex: 30, willChange: "opacity" }}
+            >
+              <CursorGlyph />
+            </motion.div>
+
+            {/* Context Menu */}
+            <ContextMenu
+              show={menuVisible}
+              selected={menuSelected}
+              clicked={menuSelected}
+              style={{ left: "55%", top: "4px" }}
+            />
+          </div>
+
+          {/* Backup Folder & Converted Output */}
+          <div className="flex items-center justify-center gap-10 sm:gap-14 w-full pt-2">
+            <motion.div
+              animate={{
+                scale: folderPulse ? 1.12 : 1,
+                opacity: folderActive ? 1 : 0.35,
+              }}
+              transition={{ duration: 0.4, ease: EASE }}
+              style={{ willChange: "transform, opacity" }}
+              className="flex flex-col items-center gap-3 relative"
+            >
+              <FolderGlyph />
+              <span className="font-mono-x text-xs tracking-[0.25em] text-white/80 uppercase">Backup</span>
+            </motion.div>
+
+            <motion.div
+              animate={{
+                opacity: outputVisible ? 1 : 0,
+                y: outputVisible ? 0 : 12,
+                scale: outputVisible ? 1 : 0.85
+              }}
+              transition={{ duration: 0.4, ease: EASE }}
+              style={{ willChange: "transform, opacity" }}
+              className="flex flex-col items-center gap-2.5"
+            >
+              <FileGlyph />
+              <span className="font-mono-x text-[10px] sm:text-[11px] tracking-wide text-neon font-bold">clip.mp4</span>
+            </motion.div>
+          </div>
+
+          {/* Done status badge */}
+          <div className="h-8 flex items-center justify-center">
+            <AnimatePresence>
+              {doneBadges && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="flex items-center gap-3 font-mono-x text-[10px] tracking-wider text-neon bg-black/70 px-3.5 py-1.5 border border-white/10 rounded-none shadow-[0_0_15px_rgba(241,171,1,0.25)]"
+                >
+                  <span>✓ Backup Created</span>
+                  <span className="text-white/30">•</span>
+                  <span>✓ Converted to MP4</span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      );
+    }
+
+    /* ---------- Header ---------- */
+    function Header() {
+      return (
+        <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-5 mix-blend-difference">
+          <div className="flex items-center gap-2.5">
+            <Logo />
+          </div>
+          <span className="font-mono-x text-[10px] md:text-xs tracking-[0.2em] text-white/70">WIN / OFFLINE</span>
+        </header>
+      );
+    }
+
+    /* ---------- Upgraded Hero Section ---------- */
+    function Hero() {
+      const mouseX = useMotionValue(0);
+      const mouseY = useMotionValue(0);
+      const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [2.5, -2.5]), { stiffness: 100, damping: 20 });
+      const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-2.5, 2.5]), { stiffness: 100, damping: 20 });
+
+      const handleMouseMove = (e) => {
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+        const nx = (e.clientX / window.innerWidth) - 0.5;
+        const ny = (e.clientY / window.innerHeight) - 0.5;
+        mouseX.set(nx);
+        mouseY.set(ny);
+      };
+
+      return (
+        <section
+          onMouseMove={handleMouseMove}
+          aria-label="Hero Introduction"
+          className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative pt-20 pb-16"
+        >
+          {/* Eyebrow Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="mb-8 inline-flex items-center gap-2 px-3.5 py-1.5 border border-white/10 bg-[#0A0A0A] font-mono-x text-[10px] sm:text-xs tracking-[0.2em] text-white/80"
+          >
+            <span className="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+            <span>OFFLINE MEDIA ENGINE</span>
+            <span className="text-white/30">•</span>
+            <span className="text-neon">RUNNING LOCALLY</span>
+          </motion.div>
+
+          {/* Staggered 3D Headline */}
+          <motion.h1
+            style={{ rotateX, rotateY, transformPerspective: 1000, willChange: "transform" }}
+            className="font-display font-bold uppercase leading-[0.92] tracking-tight text-[3rem] sm:text-[3.5rem] md:text-[5rem] max-w-5xl"
+          >
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+              className="block"
+            >
+              Stop using
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25, ease: EASE }}
+              className="block text-white"
+            >
+              web converters.
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: EASE }}
+              className="block text-neon"
+            >
+              They suck.
+            </motion.span>
+          </motion.h1>
+
+          {/* Description */}
+          <Reveal delay={200}>
+            <p className="mt-8 max-w-xl text-white/70 text-base md:text-lg leading-relaxed">
+              You're wasting time uploading local files to ad-infested websites just to download them again. AVI Core lives in your right-click menu. Highlight. Click. Converted.
+            </p>
+          </Reveal>
+
+          {/* Magnetic CTA */}
+          <Reveal delay={300}>
+            <div className="mt-10">
+              <MagneticButton
+                href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
+                target="_blank"
+                rel="noopener noreferrer"
+                ariaLabel="Download AVI Core for Windows for free"
+              >
+                Download for Windows (Free)
+              </MagneticButton>
+            </div>
+          </Reveal>
+
+          {/* Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+            className="mt-8 flex items-center justify-center gap-4 sm:gap-6 font-mono-x text-[10px] sm:text-xs tracking-[0.18em] text-white/50"
+          >
+            <span className="flex items-center gap-1.5"><span className="text-neon">✓</span> NO UPLOADS</span>
+            <span className="text-white/20">•</span>
+            <span className="flex items-center gap-1.5"><span className="text-neon">✓</span> NO ADS</span>
+            <span className="text-white/20">•</span>
+            <span className="flex items-center gap-1.5"><span className="text-neon">✓</span> 100% OFFLINE</span>
+          </motion.div>
+
+          {/* Animated Scroll Pulse */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="absolute bottom-6 flex flex-col items-center gap-2 select-none pointer-events-none"
+          >
+            <span className="font-mono-x text-[9px] tracking-[0.3em] text-white/40">SCROLL</span>
+            <div className="w-[1px] h-7 bg-white/10 relative overflow-hidden">
+              <motion.div
+                animate={{ y: [0, 28] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-full h-3 bg-neon"
+              />
+            </div>
+          </motion.div>
+        </section>
+      );
+    }
+
+    function RealityCheck() {
+      return (
+        <section aria-label="Performance Reality Check" className="min-h-[70vh] flex flex-col justify-center px-6 sm:px-12 md:px-24 py-24">
+          <div className="w-full flex justify-center mb-16 md:mb-24">
+            <BulkConversionVisual />
+          </div>
+          <Reveal>
+            <h2 className="font-display font-bold uppercase leading-[0.95] tracking-tight text-[2.25rem] sm:text-[3.5rem] md:text-[5rem] max-w-4xl">
+              The internet is too slow for this.
+            </h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className="mt-8 max-w-2xl text-white/70 text-base md:text-lg leading-relaxed">
+              Dragging files into a browser is a joke. AVI Core is a local engine that processes directly on your hardware. MP4s, WAVs, PNGs. Drop a massive, mixed-media batch on it. It chews through everything in milliseconds without ever opening a dashboard.
+            </p>
+          </Reveal>
+        </section>
+      );
+    }
+
+    function SafetyNet() {
+      return (
+        <section aria-label="Automatic Backup Safety" className="min-h-[70vh] flex flex-col justify-center px-6 sm:px-12 md:px-24 py-24">
+          <div className="flex justify-center border border-white/10 bg-transparent py-12 mb-16 md:mb-20">
+            <BackupVisual />
+          </div>
+          <Reveal>
+            <h2 className="font-display font-bold uppercase leading-[0.95] tracking-tight text-[2.25rem] sm:text-[3rem] md:text-[3.75rem] max-w-3xl">
+              We back up your raw files so you don't screw them up.
+            </h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className="mt-8 max-w-lg text-white/70 text-base md:text-lg leading-relaxed">
+              We know the panic of overwriting a master file. The exact millisecond you hit convert, AVI Core vaults your original assets into an auto-generated backup folder. You get your converted files instantly, and your originals stay <strong className="text-white font-bold">untouched</strong>.
+            </p>
+          </Reveal>
+        </section>
+      );
+    }
+
+    /* ---------- Enhanced CLI Command Execution Simulator ---------- */
+    function useTypedTerminal(commands, active) {
+      const [lines, setLines] = React.useState([]);
+
+      React.useEffect(() => {
+        if (!active) {
+          setLines([]);
+          return;
+        }
+        let cancelled = false;
+        let timerId = null;
+
+        const wait = (ms) => new Promise((resolve) => {
+          timerId = setTimeout(resolve, ms);
+        });
+
+        const setLast = (patch) =>
+          setLines((prev) => {
+            if (!prev.length) return prev;
+            const copy = [...prev];
+            copy[copy.length - 1] = { ...copy[copy.length - 1], ...patch };
+            return copy;
+          });
+
+        async function run() {
+          while (!cancelled) {
+            setLines([]);
+            for (const cmd of commands) {
+              if (cancelled) return;
+              setLines((prev) => [...prev, { cmd, typed: "", stage: 0, status: "typing" }]);
+              for (let i = 1; i <= cmd.length; i++) {
+                if (cancelled) return;
+                await wait(22 + Math.random() * 24);
+                if (cancelled) return;
+                setLast({ typed: cmd.slice(0, i) });
+              }
+              await wait(350);
+              if (cancelled) return;
+              setLast({ status: "running", stage: 1 });
+              await wait(300);
+              if (cancelled) return;
+              setLast({ stage: 2 });
+              await wait(400);
+              if (cancelled) return;
+              setLast({ status: "done", stage: 3 });
+              await wait(600);
+            }
+            if (cancelled) return;
+            await wait(1400);
+          }
+        }
+        run();
+        return () => {
+          cancelled = true;
+          if (timerId) clearTimeout(timerId);
+        };
+      }, [active, commands]);
+
+      return lines;
+    }
+
+    const TERMINAL_COMMANDS = [
+      'avicore video convert movie.mkv mp4',
+      'avicore image convert logo.png webp',
+      'avicore image convert "*.png" webp',
+    ];
+
+    function TerminalBlock() {
+      const commands = TERMINAL_COMMANDS;
+      const ref = React.useRef(null);
+      const inView = useInView(ref, { amount: 0.3, once: false });
+      const lines = useTypedTerminal(commands, inView);
+
+      return (
+        <section ref={ref} aria-label="Terminal CLI Integration" className="flex flex-col px-6 sm:px-12 md:px-24 py-24">
+          <motion.div
+            className="mb-14 border border-white/10 bg-[#0A0A0A] w-full h-[24rem] overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.9)]"
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <div className="scanlines absolute inset-0 pointer-events-none opacity-20 z-10" />
+            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10 relative z-20 bg-[#0A0A0A]">
+              <span className="w-2.5 h-2.5 border border-white/40"></span>
+              <span className="w-2.5 h-2.5 border border-white/40"></span>
+              <span className="w-2.5 h-2.5 border border-white/40"></span>
+              <span className="ml-3 font-mono-x text-[10px] tracking-[0.25em] text-white/40">AVICORE.EXE</span>
+            </div>
+            <div className="p-6 font-mono-x text-sm leading-relaxed min-h-[140px] relative z-20 flex flex-col gap-2">
+              {lines.map((line, i) => (
+                <div key={i} className="text-white/80">
+                  <div><span className="text-neon">$</span> {line.typed}{line.status === "typing" && <span className="blink text-neon">_</span>}</div>
+                  {line.stage >= 1 && (
+                    <div className="text-white/40 pl-4 text-xs mt-0.5">
+                      [INFO] Initializing engine pass...
+                    </div>
+                  )}
+                  {line.stage >= 2 && (
+                    <div className="text-white/60 pl-4 text-xs">
+                      [PROCESS] Executing direct hardware pipeline...
+                    </div>
+                  )}
+                  {line.stage >= 3 && (
+                    <div className="text-neon pl-4 text-xs font-bold">
+                      [SUCCESS] ✓ Conversion complete in 12ms — file saved
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <Reveal>
+            <h2 className="font-display font-bold uppercase leading-[0.95] tracking-tight text-[2.25rem] sm:text-[3.5rem] md:text-[5rem] max-w-4xl">
+              Terminal power.<br />Zero friction.
+            </h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className="mt-8 max-w-2xl text-white/70 text-base md:text-lg leading-relaxed">
+              We took a hardcore CLI app and built it into your Windows context menu. No bloated UI, no premium tiers, no watermarks. Just raw, local processing power exactly where your mouse is.
+            </p>
+          </Reveal>
+        </section>
+      );
+    }
+
+    /* ---------- Upgraded Final CTA Section ---------- */
+    function FinalCTA() {
+      return (
+        <section
+          id="download"
+          aria-label="Download Call to Action"
+          className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 py-24 relative overflow-hidden"
+        >
+          <Reveal>
+            <h2 className="font-display font-bold uppercase leading-[0.95] tracking-tight text-[2.5rem] sm:text-[3.75rem] md:text-[5rem] relative z-10">
+              Stop dragging<br />and dropping.
+            </h2>
+          </Reveal>
+          <Reveal delay={140}>
+            <div className="mt-12 relative z-10 flex flex-col items-center gap-4">
+              <MagneticButton
+                href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
+                target="_blank"
+                rel="noopener noreferrer"
+                ariaLabel="Get AVI Core Now for Windows"
+              >
+                Get AVI Core Now
+              </MagneticButton>
+              <span className="font-mono-x text-[10px] md:text-xs tracking-[0.2em] text-white/40">
+                Free forever • No account required
+              </span>
+            </div>
+          </Reveal>
+        </section>
+      );
+    }
+
+    /* ---------- Upgraded Footer Section ---------- */
+    function Footer() {
+      return (
+        <footer className="border-t border-white/10 py-10 text-center bg-black/60 backdrop-blur-md relative overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[1px] bg-gradient-to-r from-transparent via-neon/60 to-transparent" />
+          <Reveal y={10}>
+            <p className="font-mono-x text-[10px] md:text-xs tracking-[0.3em] text-white/40 hover:text-white/70 transition-colors duration-300 select-none">
+              BUILT FOR WINDOWS &nbsp;•&nbsp; 100% OFFLINE &nbsp;•&nbsp; COMPLETELY FREE
+            </p>
+          </Reveal>
+        </footer>
+      );
+    }
+
+    /* ---------- Advanced Multi-Layer Interactive Background ---------- */
+    function InteractiveBackground() {
+      const mouseX = useMotionValue(-1000);
+      const mouseY = useMotionValue(-1000);
+      const mouseX2 = useMotionValue(-1000);
+      const mouseY2 = useMotionValue(-1000);
+
+      const sx = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sy = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sx2 = useSpring(mouseX2, { stiffness: 80, damping: 22, mass: 0.6 });
+      const sy2 = useSpring(mouseY2, { stiffness: 80, damping: 22, mass: 0.6 });
+
+      React.useEffect(() => {
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+            mouseX2.set(window.innerWidth - e.clientX);
+            mouseY2.set(window.innerHeight - e.clientY);
+          });
+        };
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+          window.addEventListener("mousemove", move, { passive: true });
+        }
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+        };
+      }, [mouseX, mouseY, mouseX2, mouseY2]);
+
+      const glow1 = useTransform(
+        [sx, sy],
+        ([x, y]) => `radial-gradient(650px circle at ${x}px ${y}px, rgba(241, 171, 1, 0.24), transparent 65%)`
+      );
+
+      const glow2 = useTransform(
+        [sx2, sy2],
+        ([x, y]) => `radial-gradient(500px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.06), transparent 60%)`
+      );
+
+      return (
+        <div aria-hidden="true" style={{ position: "fixed", inset: 0, zIndex: -1, pointerEvents: "none", overflow: "hidden" }}>
+          {/* Layer 1: Global Cursor-following Radial Light across ALL sections */}
+          <motion.div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: glow1,
+              willChange: "background",
+            }}
+          />
+          <motion.div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: glow2,
+              willChange: "background",
+            }}
+          />
+
+          {/* Layer 2: Technical Developer Grid */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-60" />
+
+          {/* Layer 3: Floating Ambient Particles */}
+          <div className="absolute inset-0 overflow-hidden opacity-30">
+            <div className="absolute top-[20%] left-[15%] w-1.5 h-1.5 rounded-full bg-neon animate-ping duration-1000" />
+            <div className="absolute top-[60%] left-[80%] w-1 h-1 rounded-full bg-white animate-pulse" />
+            <div className="absolute top-[75%] left-[25%] w-1.5 h-1.5 rounded-full bg-neon/80 animate-pulse" />
+          </div>
+
+          {/* Layer 4: Cinematic Noise Overlay */}
+          <svg className="fixed inset-0 w-full h-full pointer-events-none opacity-[0.03] z-0 mix-blend-overlay">
+            <filter id="noiseFilter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
+        </div>
+      );
+    }
+
+    /* ---------- Custom Interactive Cursor ---------- */
+    function CustomCursor() {
+      const [enabled, setEnabled] = React.useState(false);
+      const [hovering, setHovering] = React.useState(false);
+      const x = useMotionValue(-100);
+      const y = useMotionValue(-100);
+      const sx = useSpring(x, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const sy = useSpring(y, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const enabledRef = React.useRef(false);
+
+      React.useEffect(() => {
+        if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) {
+          return;
+        }
+
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            x.set(e.clientX);
+            y.set(e.clientY);
+            if (!enabledRef.current) {
+              enabledRef.current = true;
+              setEnabled(true);
+              document.body.classList.add("has-custom-cursor");
+            }
+          });
+        };
+
+        const isInteractive = (el) => {
+          if (!el || !el.closest) return false;
+          return Boolean(el.closest("a, button, [role='button'], input, select, textarea, .btn-hard"));
+        };
+
+        const over = (e) => {
+          if (isInteractive(e.target)) setHovering(true);
+        };
+        const out = (e) => {
+          if (isInteractive(e.target)) setHovering(false);
+        };
+
+        window.addEventListener("mousemove", move, { passive: true });
+        document.addEventListener("mouseover", over, { passive: true });
+        document.addEventListener("mouseout", out, { passive: true });
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+          document.removeEventListener("mouseover", over);
+          document.removeEventListener("mouseout", out);
+          document.body.classList.remove("has-custom-cursor");
+        };
+      }, [x, y]);
+
+      if (!enabled) return null;
+
+      return (
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            x: sx,
+            y: sy,
+            zIndex: 9999,
+            pointerEvents: "none",
+            willChange: "transform",
+          }}
+        >
+          <motion.div
+            style={{ transform: "translate(-50%, -50%)", borderColor: "#f1ab01" }}
+            animate={{
+              opacity: enabled ? 1 : 0,
+              width: hovering ? 46 : 16,
+              height: hovering ? 46 : 16,
+              backgroundColor: hovering ? "rgba(241,171,1,0)" : "#f1ab01",
+              borderWidth: hovering ? 1.5 : 0,
+            }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="rounded-full border"
+          />
+        </motion.div>
+      );
+    }
+
+    function App() {
+      return (
+        <MotionConfig reducedMotion="user">
+          <div className="relative min-h-screen w-full">
+            <ScrollProgress />
+            <InteractiveBackground />
+            <CustomCursor />
+            <Header />
+            <main id="main-content">
+              <Hero />
+              <RealityCheck />
+              <SafetyNet />
+              <TerminalBlock />
+              <FinalCTA />
+            </main>
+            <Footer />
+          </div>
+        </MotionConfig>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+
+</html>

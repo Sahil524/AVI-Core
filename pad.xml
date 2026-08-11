@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XML_DIZ_INFO>
+	<MASTER_PAD_VERSION_INFO>
+		<MASTER_PAD_VERSION>4.0</MASTER_PAD_VERSION>
+		<MASTER_PAD_EDITOR>PAD Editor</MASTER_PAD_EDITOR>
+		<MASTER_PAD_INFO>Portable Application Description (PAD) file for AVI Core</MASTER_PAD_INFO>
+	</MASTER_PAD_VERSION_INFO>
+	<Company_Info>
+		<Company_Name>Sahil524</Company_Name>
+		<Address_1></Address_1>
+		<Address_2></Address_2>
+		<City_Town></City_Town>
+		<State_Province></State_Province>
+		<Zip_Postal_Code></Zip_Postal_Code>
+		<Country></Country>
+		<Company_WebSite_URL>https://github.com/Sahil524/avicore</Company_WebSite_URL>
+		<Contact_Info>
+			<Author_First_Name>Sahil</Author_First_Name>
+			<Author_Last_Name></Author_Last_Name>
+			<Author_Email>contact@example.com</Author_Email>
+			<Contact_First_Name>Sahil</Contact_First_Name>
+			<Contact_Last_Name></Contact_Last_Name>
+			<Contact_Email>contact@example.com</Contact_Email>
+		</Contact_Info>
+		<Support_Info>
+			<Sales_Email></Sales_Email>
+			<Support_Email></Support_Email>
+			<General_Email></General_Email>
+			<Sales_URL></Sales_URL>
+			<Support_URL>https://github.com/Sahil524/avicore/issues</Support_URL>
+			<General_URL>https://github.com/Sahil524/avicore</General_URL>
+		</Support_Info>
+	</Company_Info>
+	<Program_Info>
+		<Program_Name>AVI Core</Program_Name>
+		<Program_Version>2.0.0</Program_Version>
+		<Program_Release_Month>08</Program_Release_Month>
+		<Program_Release_Day>11</Program_Release_Day>
+		<Program_Release_Year>2026</Program_Release_Year>
+		<Program_Cost_Dollars>0</Program_Cost_Dollars>
+		<Program_Cost_Other></Program_Cost_Other>
+		<Program_Type>Freeware</Program_Type>
+		<Program_Release_Status>New Release</Program_Release_Status>
+		<Program_Install_Support>Install and Uninstall</Program_Install_Support>
+		<Program_OS_Support>Win10 x64, Win11, Windows 10, Windows 11, Linux</Program_OS_Support>
+		<Program_Language>English</Program_Language>
+		<Program_Change_Info></Program_Change_Info>
+		<Program_Specific_Category>Multimedia &amp; Design</Program_Specific_Category>
+		<Program_Category_Class>Audio &amp; Multimedia::Video Tools</Program_Category_Class>
+		<Program_System_Requirements>Windows 10/11 or Linux</Program_System_Requirements>
+		<File_Info>
+			<File_Size_Bytes>68472452</File_Size_Bytes>
+			<File_Size_K>66868</File_Size_K>
+			<File_Size_MB>65.3</File_Size_MB>
+		</File_Info>
+		<Expire_Info>
+			<Has_Expire_Info>N</Has_Expire_Info>
+			<Expire_Count></Expire_Count>
+			<Expire_Based_On></Expire_Based_On>
+			<Write_External_Manifest>N</Write_External_Manifest>
+		</Expire_Info>
+	</Program_Info>
+	<Program_Descriptions>
+		<English>
+			<Keywords>avi core, video converter, audio extractor, image converter, image compressor, ffmpeg, context menu, media processing, mp4, mp3, webp</Keywords>
+			<Char_Desc_45>Universal Media Processing Engine</Char_Desc_45>
+			<Char_Desc_80>Hardened, production-grade video, audio, and image media processing engine.</Char_Desc_80>
+			<Char_Desc_250>AVI Core is a hardened, production-grade media processing tool that wraps FFmpeg into simple commands with CLI and native Windows File Explorer context menu integration.</Char_Desc_250>
+			<Char_Desc_450>AVI Core is a standalone media processing engine wrapping FFmpeg capabilities. It supports video, audio, and image conversion and compression via command-line interface and direct Windows Explorer context menu integration. Features fast stream copying, audio extraction, image conversion, smart overwrite protection, and automated cleanup without requiring manual FFmpeg or Python setup.</Char_Desc_450>
+			<Char_Desc_2000>AVI Core is a hardened, production-grade media processing engine that wraps the power of FFmpeg into simple, human-readable commands. It supports video, audio, and image processing through both a powerful command-line interface (CLI) and native Windows File Explorer integration, allowing you to process media directly from the right-click context menu.
+
+Key Features:
+- Universal Media Processing: Convert videos, extract audio, mute videos, compress images, and convert image formats seamlessly.
+- Native Windows File Explorer Integration: Dynamic context menu integration tailored for image, video, and audio files.
+- Completely Standalone: Includes embedded FFmpeg engine with no manual installation of Python or FFmpeg required.
+- Powerful CLI &amp; Automation: Simple commands such as `avicore video convert`, `avicore audio extract`, `avicore image compress`.
+- Safety &amp; Reliability: Smart overwrite protection, automatic cleanup of interrupted conversions, dynamic output naming, and verbose debug options.
+- Extensive Format Support:
+  * Video: MP4, MKV, MOV, AVI, WebM, M4V, FLV, TS
+  * Audio: MP3, WAV, AAC, FLAC, OGG, M4A
+  * Images: JPG, JPEG, PNG, WebP, BMP</Char_Desc_2000>
+		</English>
+	</Program_Descriptions>
+	<Web_Info>
+		<Application_URLs>
+			<Application_Info_URL>https://github.com/Sahil524/avicore</Application_Info_URL>
+			<Application_Order_URL>https://github.com/Sahil524/avicore</Application_Order_URL>
+			<Application_Screenshot_URL>https://raw.githubusercontent.com/Sahil524/avicore/main/logo.webp</Application_Screenshot_URL>
+			<Application_Icon_URL>https://raw.githubusercontent.com/Sahil524/avicore/main/logo.ico</Application_Icon_URL>
+			<Application_XML_File_URL>https://raw.githubusercontent.com/Sahil524/avicore/main/pad.xml</Application_XML_File_URL>
+		</Application_URLs>
+		<Download_URLs>
+			<Primary_Download_URL>https://github.com/Sahil524/avicore/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe</Primary_Download_URL>
+			<Secondary_Download_URL>https://github.com/Sahil524/avicore/releases</Secondary_Download_URL>
+		</Download_URLs>
+	</Web_Info>
+	<Permissions>
+		<Distribution_Permissions>Freely distributable under the MIT License.</Distribution_Permissions>
+		<EULA>MIT License (https://opensource.org/licenses/MIT)</EULA>
+	</Permissions>
+</XML_DIZ_INFO>

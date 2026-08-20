@@ -1,0 +1,29 @@
+{
+  "name": "AVI Core — Offline Media Converter for Windows",
+  "short_name": "AVI Core",
+  "description": "Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f1ab01",
+  "orientation": "any",
+  "categories": [
+    "utilities",
+    "multimedia",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./logo.ico",
+      "sizes": "48x48 32x32 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

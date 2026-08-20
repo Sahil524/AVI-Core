@@ -1,0 +1,41 @@
+# AVI Core
+
+> Universal offline media processing engine & context-menu converter for Windows. Built for lightning-fast, 100% offline conversions without file upload limits, ads, or telemetry.
+
+**Key Highlights & Features**
+* 100% Offline & Private: Zero network requests, zero file uploads, no tracking. All processing occurs locally.
+* Native Windows Context Menu: Right-click single or multiple files in Windows File Explorer to convert instantly.
+* Automatic Safety Backups: Automatically vaults original files into a timestamped/dedicated backup folder before processing to prevent accidental overwrite.
+* High-Performance Hardware Execution: Direct local hardware pipeline via bundled, optimized FFmpeg binaries with `--fast` stream copy mode.
+* Dual Interface: Native Windows Shell Context Menu + full-featured developer CLI (`avicore`).
+* Free & Open Source: Licensed under MIT with no paywalls or watermarks.
+
+**Supported Formats**
+* Video: MP4, MKV, AVI, MOV, WEBM, FLV, WMV, TS, M4V
+* Audio: MP3, AAC, WAV, FLAC, OGG, M4A, OPUS, WMA
+* Image: PNG, JPG, JPEG, WEBP, BMP, TIFF, GIF, ICO
+
+**CLI Command Reference**
+* `avicore video convert [input] [format]`: Convert video format (e.g. `avicore video convert movie.mkv mp4`). Supports `--fast` (stream copy) and `--force` (overwrite).
+* `avicore video mute [input]`: Remove audio stream while keeping video intact.
+* `avicore audio extract [input] [format]`: Extract audio track from video (e.g. `avicore audio extract clip.mp4 mp3`).
+* `avicore audio convert [input] [format]`: Convert audio between formats.
+* `avicore image convert [input] [format]`: Convert single or wildcard image batches (e.g. `avicore image convert "*.png" webp`).
+* `avicore image compress [input] --quality [1-100]`: Compress image files.
+* `avicore menu install` / `avicore menu remove`: Register or remove the Windows File Explorer context menu.
+
+**System Requirements & Installation**
+* OS: Windows 10 (64-bit), Windows 11, or Linux (CLI mode).
+* Standalone: No separate Python or FFmpeg installation required when using the Windows installer package.
+
+## Resources
+
+- [Official Website](https://sahil524.github.io/AVI-Core/): Landing page and documentation.
+- [GitHub Repository](https://github.com/Sahil524/AVI-Core): Source code, issues, and discussions.
+- [Latest Windows Installer](https://github.com/Sahil524/AVI-Core/releases/latest): Standalone installer for Windows 10 & Windows 11.
+- [Full LLM Documentation](https://sahil524.github.io/AVI-Core/llms-full.txt): Detailed CLI command reference and technical specs for AI agents.
+- [Author Canonical Identity](https://sahilsawant.dev/#person): Sahil Sawant's professional developer portfolio and entity graph.
+
+## Optional
+
+- [SourceForge Mirror](https://avi-core.sourceforge.io/): Alternative hosting and documentation mirror for the project.

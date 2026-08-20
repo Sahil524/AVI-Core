@@ -4,8 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Core Meta Tags -->
   <title>AVI Core — Offline Media Converter for Windows</title>
+  <meta name="description"
+    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click context menu integration. Convert MKV, MP4, PNG, WEBP instantly with AVI Core." />
+  <meta name="keywords"
+    content="offline video converter, free Windows media converter, right click video converter, offline MP4 converter, MKV converter Windows, AVI Core, image converter webp png, local ffmpeg converter, Windows context menu converter, batch image converter" />
+  <meta name="author" content="Sahil Sawant" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AVI Core" />
+
+  <!-- Canonical & PWA Manifest -->
+  <link rel="canonical" href="https://sahil524.github.io/AVI-Core/" />
+  <link rel="manifest" href="./site.webmanifest" />
   <link rel="icon" type="image/webp" href="./logo.webp" />
+  <link rel="apple-touch-icon" href="./logo.webp" />
+
+  <!-- AI Agent & LLM Discovery Pointers -->
+  <link rel="describedby" type="text/plain" href="llms.txt" />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNQ655TBEQ"></script>
@@ -13,27 +34,18 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-KNQ655TBEQ');
   </script>
-
-  <!-- Primary SEO Meta Tags -->
-  <meta name="description"
-    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration. Convert MKV, MP4, PNG, WEBP instantly with AVI Core." />
-  <meta name="keywords"
-    content="offline video converter Windows, free Windows media converter, right click video converter, offline MP4 converter, MKV converter Windows, AVI Core converter, best offline media converter, Windows context menu converter" />
-  <meta name="author" content="AVI Core" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://sahil524.github.io/AVI-Core/" />
 
   <!-- OpenGraph / Facebook / Discord / Slack -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sahil524.github.io/AVI-Core/" />
   <meta property="og:title" content="AVI Core — Offline Media Converter for Windows" />
   <meta property="og:description"
-    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration." />
   <meta property="og:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
-  <meta property="og:site_name" content="AVI Core" />
+  <meta property="og:image:alt" content="AVI Core - Universal Offline Media Processing Engine" />
+  <meta property="og:site_name" content="AVI Core by Sahil Sawant" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
@@ -41,26 +53,113 @@
   <meta name="twitter:url" content="https://sahil524.github.io/AVI-Core/" />
   <meta name="twitter:title" content="AVI Core — Offline Media Converter for Windows" />
   <meta name="twitter:description"
-    content="Free offline video converter &amp; media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration." />
   <meta name="twitter:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+  <meta name="twitter:creator" content="@SahilSawant" />
 
-  <!-- JSON-LD Structured Data -->
+  <!-- Comprehensive JSON-LD Structured Data for Google Rich Snippets -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "AVI Core",
-  "operatingSystem": "Windows",
-  "applicationCategory": "MultimediaApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "description": "Free offline video converter & media conversion tool for Windows with native right-click context menu integration.",
-  "downloadUrl": "https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
-}
-</script>
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://sahil524.github.io/AVI-Core/#website",
+        "url": "https://sahil524.github.io/AVI-Core/",
+        "name": "AVI Core Official Page",
+        "description": "Landing page and documentation for AVI Core offline media converter for Windows.",
+        "inLanguage": "en-US",
+        "publisher": {
+          "@id": "https://sahilsawant.dev/#person"
+        }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://sahil524.github.io/AVI-Core/#software",
+        "name": "AVI Core",
+        "description": "Free offline video converter & media conversion tool for Windows with native right-click context menu integration.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Windows 10, Windows 11, Linux",
+        "softwareVersion": "2.0.0",
+        "fileFormat": ["video/mp4", "video/x-matroska", "image/webp", "image/png", "audio/mpeg", "audio/wav"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "@id": "https://sahilsawant.dev/#person",
+          "name": "Sahil Sawant",
+          "url": "https://sahilsawant.dev/"
+        },
+        "downloadUrl": "https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe",
+        "codeRepository": "https://github.com/Sahil524/AVI-Core",
+        "sameAs": [
+          "https://avi-core.sourceforge.io/"
+        ],
+        "featureList": [
+          "Right-click context menu integration",
+          "100% Offline conversion",
+          "Zero file size limits",
+          "Automatic raw file backup vaulting",
+          "Zero lag local hardware processing",
+          "FFmpeg powered engine"
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://sahil524.github.io/AVI-Core/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://sahil524.github.io/AVI-Core/"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://sahil524.github.io/AVI-Core/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is AVI Core 100% offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. AVI Core operates entirely on your local hardware. No files are uploaded to any external server or cloud, ensuring maximum speed and complete privacy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install Python or FFmpeg separately?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The AVI Core Windows Installer is standalone and includes all required dependencies and pre-configured FFmpeg binaries."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does the Windows context menu integration work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "When installed, AVI Core adds dynamic entries to the Windows File Explorer right-click menu. You can right-click any supported media file (or multiple selected files) and convert instantly without opening a terminal or separate window."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does AVI Core overwrite original media files?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. AVI Core automatically creates a backup of your original file before converting, keeping your master assets untouched."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -191,7 +290,29 @@
 </head>
 
 <body class="antialiased">
-  <div id="root"></div>
+  <div id="root">
+    <noscript>
+      <header style="padding: 2rem; text-align: center; border-bottom: 1px solid #333;">
+        <h1>AVI Core — Offline Media Converter for Windows</h1>
+        <p>Free, 100% offline media conversion engine with Windows right-click context menu integration.</p>
+        <a href="https://github.com/Sahil524/AVI-Core/releases/latest"
+          style="color: #f1ab01; font-weight: bold;">Download Latest Windows Installer</a>
+      </header>
+      <main style="padding: 2rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        <h2>Key Features</h2>
+        <ul>
+          <li><strong>100% Offline:</strong> No uploads, zero network latency, complete data privacy.</li>
+          <li><strong>Context Menu Integration:</strong> Convert video, audio, and images right from Windows File
+            Explorer.</li>
+          <li><strong>Automated Backups:</strong> Safe conversion that vaults originals before processing.</li>
+          <li><strong>Hardware Acceleration:</strong> Direct local processing powered by FFmpeg.</li>
+        </ul>
+        <h2>Documentation & AI Discovery</h2>
+        <p>View AI agent summary in <a href="./llms.txt" style="color: #f1ab01;">llms.txt</a> or full documentation in
+          <a href="./llms-full.txt" style="color: #f1ab01;">llms-full.txt</a>.</p>
+      </main>
+    </noscript>
+  </div>
 
   <script type="text/babel">
     const FM = window.Motion || window.framerMotion;

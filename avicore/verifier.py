@@ -40,6 +40,11 @@ def verify_output_file_detailed(
     except Exception as exc:
         return VerificationReport(is_valid=False, error_message=f"Output file failed media probing: {exc}")
 
+    AUDIO_FORMATS = {"mp3", "wav", "aac", "flac", "ogg", "m4a"}
+    VIDEO_FORMATS = {"mp4", "mkv", "mov", "avi", "webm", "m4v", "flv", "ts"}
+
+    dst_ext = dst_path.suffix.lower().lstrip(".")
+
     # Corrupted / No Stream Validation: if source expected video/audio, output must contain streams
     if (src_info.has_video or src_info.has_audio) and not dst_info.has_video and not dst_info.has_audio:
         return VerificationReport(
@@ -48,13 +53,21 @@ def verify_output_file_detailed(
             dst_info=dst_info,
         )
 
-    # Stream Presence Validation
-    if src_info.has_video and not dst_info.has_video:
-        return VerificationReport(
-            is_valid=False,
-            error_message=f"Output media is missing expected video stream: {dst_path.name}",
-            dst_info=dst_info,
-        )
+    # Stream Presence Validation based on target media type
+    if dst_ext in AUDIO_FORMATS:
+        if not dst_info.has_audio:
+            return VerificationReport(
+                is_valid=False,
+                error_message=f"Output media is missing expected audio stream: {dst_path.name}",
+                dst_info=dst_info,
+            )
+    elif dst_ext in VIDEO_FORMATS:
+        if src_info.has_video and not dst_info.has_video:
+            return VerificationReport(
+                is_valid=False,
+                error_message=f"Output media is missing expected video stream: {dst_path.name}",
+                dst_info=dst_info,
+            )
 
     # Resolution Check (if video present)
     src_v = src_info.primary_video

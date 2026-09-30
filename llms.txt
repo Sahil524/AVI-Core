@@ -1,41 +1,77 @@
 # AVI Core
 
-> Universal offline media processing engine & context-menu converter for Windows. Built for lightning-fast, 100% offline conversions without file upload limits, ads, or telemetry.
+> Open-source offline media converter for Windows with native File Explorer integration, developer CLI, and an in-browser web converter.
 
-**Key Highlights & Features**
-* 100% Offline & Private: Zero network requests, zero file uploads, no tracking. All processing occurs locally.
-* Native Windows Context Menu: Right-click single or multiple files in Windows File Explorer to convert instantly.
-* Automatic Safety Backups: Automatically vaults original files into a timestamped/dedicated backup folder before processing to prevent accidental overwrite.
-* High-Performance Hardware Execution: Direct local hardware pipeline via bundled, optimized FFmpeg binaries with `--fast` stream copy mode.
-* Dual Interface: Native Windows Shell Context Menu + full-featured developer CLI (`avicore`).
-* Free & Open Source: Licensed under MIT with no paywalls or watermarks.
+## Identity
+- Name: AVI Core (AVI-Core, AVICORE)
+- Version: 2.0.0
+- Platform: Windows 10 & 11 (64-bit)
+- License: MIT
+- Author: Sahil Sawant
 
-**Supported Formats**
-* Video: MP4, MKV, AVI, MOV, WEBM, FLV, WMV, TS, M4V
-* Audio: MP3, AAC, WAV, FLAC, OGG, M4A, OPUS, WMA
-* Image: PNG, JPG, JPEG, WEBP, BMP, TIFF, GIF, ICO
+## Links
+- Website: https://sahil524.github.io/AVI-Core/
+- Repository: https://github.com/Sahil524/AVI-Core
+- Releases: https://github.com/Sahil524/AVI-Core/releases
+- Web Converter: https://sahil524.github.io/AVI-Core/converter.html
+- Download: https://sahil524.github.io/AVI-Core/download.html
 
-**CLI Command Reference**
-* `avicore video convert [input] [format]`: Convert video format (e.g. `avicore video convert movie.mkv mp4`). Supports `--fast` (stream copy) and `--force` (overwrite).
-* `avicore video mute [input]`: Remove audio stream while keeping video intact.
-* `avicore audio extract [input] [format]`: Extract audio track from video (e.g. `avicore audio extract clip.mp4 mp3`).
-* `avicore audio convert [input] [format]`: Convert audio between formats.
-* `avicore image convert [input] [format]`: Convert single or wildcard image batches (e.g. `avicore image convert "*.png" webp`).
-* `avicore image compress [input] --quality [1-100]`: Compress image files.
-* `avicore menu install` / `avicore menu remove`: Register or remove the Windows File Explorer context menu.
+## What It Does
+AVI Core converts video, audio, and image files entirely on the user's machine. No files are uploaded. No internet connection is required for the desktop application.
 
-**System Requirements & Installation**
-* OS: Windows 10 (64-bit), Windows 11, or Linux (CLI mode).
-* Standalone: No separate Python or FFmpeg installation required when using the Windows installer package.
+Three interfaces:
+1. Windows Explorer right-click context menu — convert, mute, extract audio, or compress files without opening a terminal.
+2. Command-line interface (`avicore`) — scriptable CLI for automation, wildcards, and batch processing.
+3. Web converter (`converter.html`) — 100% client-side browser-based image and audio conversion with zero server uploads.
 
-## Resources
+## Supported Formats (Desktop)
+- Video: MP4, MKV, MOV, AVI, WEBM, M4V, FLV, TS
+- Audio: MP3, WAV, AAC, FLAC, OGG, M4A
+- Image: JPG, JPEG, PNG, WEBP, BMP
 
-- [Official Website](https://sahil524.github.io/AVI-Core/): Landing page and documentation.
-- [GitHub Repository](https://github.com/Sahil524/AVI-Core): Source code, issues, and discussions.
-- [Latest Windows Installer](https://github.com/Sahil524/AVI-Core/releases/latest): Standalone installer for Windows 10 & Windows 11.
-- [Full LLM Documentation](https://sahil524.github.io/AVI-Core/llms-full.txt): Detailed CLI command reference and technical specs for AI agents.
-- [Author Canonical Identity](https://sahilsawant.dev/#person): Sahil Sawant's professional developer portfolio and entity graph.
+## Supported Formats (Web Converter)
+- Image output: WebP, PNG, JPG
+- Audio output: WAV (16-bit PCM)
 
-## Optional
+## Key Capabilities
+- Hardware-accelerated video encoding (NVIDIA NVENC, Intel QSV, AMD AMF)
+- Stream copy / fast convert (`--fast`) for instant container repackaging
+- Automatic backup of source files to `./backup/`
+- Two-phase atomic writes with media verification
+- Win32 Named Mutex batch spooling for Explorer multi-select
+- Bundled FFmpeg — no separate installation required
 
-- [SourceForge Mirror](https://avi-core.sourceforge.io/): Alternative hosting and documentation mirror for the project.
+## CLI Commands
+- `avicore video convert <input> <format> [--fast] [--force]`
+- `avicore video mute <input> [--force]`
+- `avicore audio extract <input> [--force]`
+- `avicore audio convert <input> <format> [--force]`
+- `avicore image convert <pattern> <format> [--force]`
+- `avicore image compress <pattern> [--quality 1-100] [--force]`
+- `avicore menu install` / `avicore menu remove`
+- `avicore system diagnostics`
+
+## Installation
+- Inno Setup installer: `AVI-Core-Setup-v2.0.0.exe`
+- PowerShell script: `powershell -ExecutionPolicy Bypass -File install.ps1`
+- Batch launcher: double-click `install.bat`
+
+## Documentation
+- Full specification: https://sahil524.github.io/AVI-Core/llms-full.txt
+- Architecture: docs/ARCHITECTURE.md
+- Installation: docs/INSTALLATION.md
+- CLI Reference: docs/CLI.md
+- Explorer Integration: docs/WINDOWS-EXPLORER.md
+- Supported Formats: docs/SUPPORTED-FORMATS.md
+- Web Converter: docs/WEB-CONVERTER.md
+- Development: docs/DEVELOPMENT.md
+
+## Website Pages
+- Homepage: https://sahil524.github.io/AVI-Core/
+- Converter: https://sahil524.github.io/AVI-Core/converter.html
+- Download: https://sahil524.github.io/AVI-Core/download.html
+- Formats: https://sahil524.github.io/AVI-Core/formats.html
+- CLI Guide: https://sahil524.github.io/AVI-Core/cli.html
+- Context Menu Guide: https://sahil524.github.io/AVI-Core/context-menu.html
+- Documentation: https://sahil524.github.io/AVI-Core/docs.html
+- FAQ: https://sahil524.github.io/AVI-Core/faq.html

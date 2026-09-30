@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Core Meta Tags -->
+  <title>Windows Right-Click Media Converter — AVI Core File Explorer Guide</title>
+  <meta name="description"
+    content="Convert video, audio, and images directly from your Windows right-click menu. Learn how AVI Core integrates into File Explorer with instant bulk conversion." />
+  <meta name="keywords"
+    content="right click video converter Windows, Windows Explorer media converter, convert to MP4 right click, right click convert PNG to WebP, right click extract audio, File Explorer converter" />
+  <meta name="author" content="Sahil Sawant" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Canonical & PWA Manifest -->
+  <link rel="canonical" href="https://sahil524.github.io/AVI-Core/context-menu.html" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="icon" type="image/webp" href="./logo.webp" />
+  <link rel="apple-touch-icon" href="./logo.webp" />
+
+  <!-- AI Discovery Links -->
+  <link rel="describedby" type="text/plain" href="llms.txt" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sahil524.github.io/AVI-Core/context-menu.html" />
+  <meta property="og:title" content="Windows Right-Click Media Converter — AVI Core" />
+  <meta property="og:description"
+    content="Convert video, audio, and images directly from your Windows right-click menu. Instant bulk conversion in File Explorer." />
+  <meta property="og:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+  <meta property="og:image:alt" content="AVI Core Windows Explorer Integration" />
+  <meta property="og:site_name" content="AVI Core" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://sahil524.github.io/AVI-Core/context-menu.html" />
+  <meta name="twitter:title" content="Windows Right-Click Media Converter — AVI Core" />
+  <meta name="twitter:description"
+    content="Convert video, audio, and images directly from your Windows right-click menu." />
+  <meta name="twitter:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://sahil524.github.io/AVI-Core/context-menu.html#article",
+        "headline": "How to Convert Media Directly from the Windows Right-Click Menu",
+        "description": "User guide for right-click File Explorer media conversion in Windows 10 and 11.",
+        "inLanguage": "en-US",
+        "mainEntityOfPage": "https://sahil524.github.io/AVI-Core/context-menu.html"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://sahil524.github.io/AVI-Core/context-menu.html#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://sahil524.github.io/AVI-Core/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Right-Click Menu",
+            "item": "https://sahil524.github.io/AVI-Core/context-menu.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --neon: #f1ab01;
+      --panel: #0A0A0A;
+      --line: #2A2A2A;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #root {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--neon);
+      color: #000000;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .font-mono-x {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-neon {
+      color: var(--neon);
+    }
+
+    .bg-panel {
+      background-color: var(--panel);
+    }
+
+    .border-line {
+      border-color: var(--line);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--neon);
+      outline-offset: 3px;
+    }
+
+    .btn-hard {
+      border: 1px solid #FFFFFF;
+      background: transparent;
+      color: #FFFFFF;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+    }
+
+    .btn-hard:hover {
+      color: #000000;
+      background: var(--neon);
+      border-color: var(--neon);
+      box-shadow: 0 0 25px rgba(241, 171, 1, 0.4);
+    }
+
+    .bg-grid-pattern {
+      background-size: 48px 48px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    .scanlines {
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 50%,
+          rgba(0, 0, 0, 0.35) 50%,
+          rgba(0, 0, 0, 0.35));
+      background-size: 100% 4px;
+    }
+
+    body.has-custom-cursor,
+    body.has-custom-cursor a,
+    body.has-custom-cursor button {
+      cursor: none;
+    }
+
+    @media (pointer: coarse) {
+      body.has-custom-cursor,
+      body.has-custom-cursor a,
+      body.has-custom-cursor button {
+        cursor: auto !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <div id="root">
+    <noscript>
+      <header style="padding: 2rem; text-align: center; border-bottom: 1px solid #333;">
+        <h1>Windows Right-Click Media Converter — AVI Core</h1>
+        <p>Convert videos, audio tracks, and photos directly inside Windows File Explorer.</p>
+        <p><a href="./index.html" style="color: #f1ab01;">Return to Homepage</a></p>
+      </header>
+    </noscript>
+  </div>
+
+  <script type="text/babel">
+    const FM = window.Motion || window.framerMotion;
+    const { motion, AnimatePresence, useMotionValue, useSpring, useTransform } = FM;
+    const MotionConfig = FM.MotionConfig || (({ children }) => children);
+    const EASE = [0.16, 1, 0.3, 1];
+
+    /* ---------- Scroll Progress ---------- */
+    function ScrollProgress() {
+      const { scrollYProgress } = FM.useScroll();
+      const scaleX = useSpring(scrollYProgress, { stiffness: 400, damping: 30, restDelta: 0.001 });
+
+      return (
+        <motion.div
+          style={{ scaleX, transformOrigin: "left" }}
+          className="fixed top-0 left-0 right-0 h-[3px] bg-neon z-[99999] pointer-events-none shadow-[0_0_14px_rgba(241,171,1,0.7)]"
+        />
+      );
+    }
+
+    /* ---------- Scroll Reveal ---------- */
+    function Reveal({ children, className = "", delay = 0, y = 20, as = "div" }) {
+      const Tag = motion[as] || motion.div;
+      return (
+        <Tag
+          className={className}
+          initial={{ opacity: 0, y }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: EASE, delay: delay / 1000 }}
+        >
+          {children}
+        </Tag>
+      );
+    }
+
+    /* ---------- Interactive Background ---------- */
+    function InteractiveBackground() {
+      const mouseX = useMotionValue(-1000);
+      const mouseY = useMotionValue(-1000);
+      const mouseX2 = useMotionValue(-1000);
+      const mouseY2 = useMotionValue(-1000);
+
+      const sx = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sy = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sx2 = useSpring(mouseX2, { stiffness: 80, damping: 22, mass: 0.6 });
+      const sy2 = useSpring(mouseY2, { stiffness: 80, damping: 22, mass: 0.6 });
+
+      React.useEffect(() => {
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+            mouseX2.set(window.innerWidth - e.clientX);
+            mouseY2.set(window.innerHeight - e.clientY);
+          });
+        };
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+          window.addEventListener("mousemove", move, { passive: true });
+        }
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+        };
+      }, [mouseX, mouseY, mouseX2, mouseY2]);
+
+      const glow1 = useTransform(
+        [sx, sy],
+        ([x, y]) => `radial-gradient(650px circle at ${x}px ${y}px, rgba(241, 171, 1, 0.22), transparent 65%)`
+      );
+
+      const glow2 = useTransform(
+        [sx2, sy2],
+        ([x, y]) => `radial-gradient(500px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.05), transparent 60%)`
+      );
+
+      return (
+        <div aria-hidden="true" style={{ position: "fixed", inset: 0, zIndex: -1, pointerEvents: "none", overflow: "hidden" }}>
+          <motion.div style={{ position: "absolute", inset: 0, background: glow1, willChange: "background" }} />
+          <motion.div style={{ position: "absolute", inset: 0, background: glow2, willChange: "background" }} />
+          <div className="absolute inset-0 bg-grid-pattern opacity-60" />
+          <div className="absolute inset-0 overflow-hidden opacity-30">
+            <div className="absolute top-[20%] left-[15%] w-1.5 h-1.5 rounded-full bg-neon animate-ping duration-1000" />
+            <div className="absolute top-[60%] left-[80%] w-1 h-1 rounded-full bg-white animate-pulse" />
+            <div className="absolute top-[75%] left-[25%] w-1.5 h-1.5 rounded-full bg-neon/80 animate-pulse" />
+          </div>
+          <svg className="fixed inset-0 w-full h-full pointer-events-none opacity-[0.03] z-0 mix-blend-overlay">
+            <filter id="noiseFilter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
+        </div>
+      );
+    }
+
+    /* ---------- Custom Cursor ---------- */
+    function CustomCursor() {
+      const [enabled, setEnabled] = React.useState(false);
+      const [hovering, setHovering] = React.useState(false);
+      const x = useMotionValue(-100);
+      const y = useMotionValue(-100);
+      const sx = useSpring(x, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const sy = useSpring(y, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const enabledRef = React.useRef(false);
+
+      React.useEffect(() => {
+        if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) return;
+
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            x.set(e.clientX);
+            y.set(e.clientY);
+            if (!enabledRef.current) {
+              enabledRef.current = true;
+              setEnabled(true);
+              document.body.classList.add("has-custom-cursor");
+            }
+          });
+        };
+
+        const isInteractive = (el) => {
+          if (!el || !el.closest) return false;
+          return Boolean(el.closest("a, button, [role='button'], input, select, textarea, .btn-hard"));
+        };
+
+        const over = (e) => { if (isInteractive(e.target)) setHovering(true); };
+        const out = (e) => { if (isInteractive(e.target)) setHovering(false); };
+
+        window.addEventListener("mousemove", move, { passive: true });
+        document.addEventListener("mouseover", over, { passive: true });
+        document.addEventListener("mouseout", out, { passive: true });
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+          document.removeEventListener("mouseover", over);
+          document.removeEventListener("mouseout", out);
+          document.body.classList.remove("has-custom-cursor");
+        };
+      }, [x, y]);
+
+      if (!enabled) return null;
+
+      return (
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            x: sx,
+            y: sy,
+            zIndex: 9999,
+            pointerEvents: "none",
+            willChange: "transform",
+          }}
+        >
+          <motion.div
+            style={{ transform: "translate(-50%, -50%)", borderColor: "#f1ab01" }}
+            animate={{
+              opacity: enabled ? 1 : 0,
+              width: hovering ? 46 : 16,
+              height: hovering ? 46 : 16,
+              backgroundColor: hovering ? "rgba(241,171,1,0)" : "#f1ab01",
+              borderWidth: hovering ? 1.5 : 0,
+            }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="rounded-full border"
+          />
+        </motion.div>
+      );
+    }
+
+    /* ---------- Navigation Header Component ---------- */
+    function Header({ current = "menu" }) {
+      const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+      const navLinks = [
+        { label: "Home", href: "./index.html", key: "home" },
+        { label: "Web Converter", href: "./converter.html", key: "converter" },
+        { label: "Download", href: "./download.html", key: "download" },
+        { label: "How It Works", href: "./docs.html", key: "docs" },
+        { label: "Formats", href: "./formats.html", key: "formats" },
+        { label: "Right-Click Menu", href: "./context-menu.html", key: "menu" },
+        { label: "CLI", href: "./cli.html", key: "cli" },
+        { label: "FAQ", href: "./faq.html", key: "faq" },
+      ];
+
+      return (
+        <header className="fixed top-0 left-0 w-full z-50 bg-black/85 backdrop-blur-md border-b border-white/10 px-6 md:px-10 py-4 transition-all">
+          <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+            <a href="./index.html" className="flex items-center gap-3 group" aria-label="AVI Core Home">
+              <img src="./logo.webp" alt="AVI Core Logo" width="36" height="36" className="object-contain transition-transform group-hover:scale-105" />
+              <div className="flex flex-col text-left">
+                <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-neon transition-colors">AVI CORE</span>
+                <span className="font-mono-x text-[9px] text-white/50 tracking-widest">OFFLINE ENGINE</span>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-6 font-mono-x text-xs tracking-wider">
+              {navLinks.map((link) => {
+                const isActive = current === link.key;
+                return (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    className={`transition-colors py-1 ${
+                      isActive ? "text-neon font-bold" : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Actions */}
+            <div className="hidden sm:flex items-center gap-4">
+              <a
+                href="https://github.com/Sahil524/AVI-Core"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono-x text-xs text-white/70 hover:text-neon flex items-center gap-1.5 transition-colors border border-white/15 px-3 py-1.5"
+              >
+                <span>GitHub</span>
+                <span className="text-[10px] text-white/40">↗</span>
+              </a>
+              <a
+                href="./download.html"
+                className="btn-hard px-4 py-1.5 font-mono-x text-xs tracking-wider uppercase text-neon border-neon/50 hover:border-neon"
+              >
+                Download App
+              </a>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-white/80 hover:text-neon p-2 focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                {mobileMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Menu Dropdown */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                id="mobile-nav-menu"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="lg:hidden border-t border-white/10 mt-3 pt-4 pb-4 flex flex-col gap-3 font-mono-x text-sm"
+              >
+                {navLinks.map((link) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`py-1.5 px-2 ${current === link.key ? "text-neon font-bold bg-white/5" : "text-white/70"}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </header>
+      );
+    }
+
+    /* ---------- Interactive Explorer Simulation Component ---------- */
+    function ExplorerSimulator() {
+      const [selectedFile, setSelectedFile] = React.useState("vacation_clip.mov");
+      const [showResult, setShowResult] = React.useState(null);
+
+      const files = [
+        { name: "vacation_clip.mov", type: "video", size: "450 MB" },
+        { name: "movie_sample.mkv", type: "video", size: "1.2 GB" },
+        { name: "company_logo.png", type: "image", size: "3.2 MB" },
+        { name: "voice_note.wav", type: "audio", size: "85 MB" }
+      ];
+
+      const currentFile = files.find(f => f.name === selectedFile) || files[0];
+
+      const runAction = (actionText) => {
+        setShowResult({
+          file: currentFile.name,
+          action: actionText
+        });
+        setTimeout(() => setShowResult(null), 4000);
+      };
+
+      return (
+        <div className="border border-white/10 bg-[#0A0A0A] p-6 md:p-8 space-y-6">
+          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-neon animate-pulse" />
+              <span className="font-mono-x text-xs tracking-widest text-white/70 uppercase">Interactive Explorer Preview</span>
+            </div>
+            <span className="font-mono-x text-[10px] text-white/40">Try Clicking Any File Below</span>
+          </div>
+
+          <div className="border border-white/15 bg-black p-4 space-y-4">
+            <div className="text-white/50 font-mono-x text-xs uppercase">
+              1. Choose a file to test:
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {files.map((f) => (
+                <div
+                  key={f.name}
+                  onClick={() => setSelectedFile(f.name)}
+                  className={`p-3 border flex items-center justify-between cursor-pointer font-mono-x text-xs transition-all ${
+                    selectedFile === f.name
+                      ? "border-neon bg-neon/10 text-white shadow-[0_0_12px_rgba(241,171,1,0.2)]"
+                      : "border-white/10 bg-[#0A0A0A] text-white/70 hover:border-white/30"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span>{f.type === "video" ? "🎬" : f.type === "image" ? "🖼️" : "🎵"}</span>
+                    <span className="font-bold">{f.name}</span>
+                  </div>
+                  <span className="text-white/40 text-[10px]">{f.size}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <div className="text-white/50 font-mono-x text-xs uppercase mb-2">
+                2. Right-click menu options for <span className="text-neon">{currentFile.name}</span>:
+              </div>
+
+              {/* Simulated Menu Box */}
+              <div className="border border-white/20 bg-[#121212] max-w-sm p-2 font-mono-x text-xs space-y-1">
+                <div className="text-white/40 px-3 py-1 text-[10px] border-b border-white/10">
+                  Windows Right-Click Menu
+                </div>
+
+                <div className="px-3 py-1.5 text-neon font-bold flex items-center justify-between bg-black/60 border-y border-neon/30 my-1">
+                  <span>AVI CORE</span>
+                  <span>▸</span>
+                </div>
+
+                <div className="pl-4 space-y-1 py-1">
+                  {currentFile.type === "video" && (
+                    <>
+                      <button
+                        onClick={() => runAction("Fast Convert to MP4")}
+                        className="w-full text-left px-2 py-1 text-emerald-400 hover:bg-white/10 text-[11px] block"
+                      >
+                        ⚡ Fast Convert (MP4) — Takes 1s
+                      </button>
+                      <button
+                        onClick={() => runAction("Convert Video to MP4")}
+                        className="w-full text-left px-2 py-1 text-white hover:bg-white/10 text-[11px] block"
+                      >
+                        Convert Video ➔ to MP4
+                      </button>
+                      <button
+                        onClick={() => runAction("Extract Audio to MP3")}
+                        className="w-full text-left px-2 py-1 text-neon hover:bg-white/10 text-[11px] block"
+                      >
+                        Extract Audio Track ➔ to MP3
+                      </button>
+                    </>
+                  )}
+
+                  {currentFile.type === "image" && (
+                    <>
+                      <button
+                        onClick={() => runAction("Convert Image to WebP")}
+                        className="w-full text-left px-2 py-1 text-neon hover:bg-white/10 text-[11px] block"
+                      >
+                        Convert to WebP (Shrink file)
+                      </button>
+                      <button
+                        onClick={() => runAction("Convert Image to JPG")}
+                        className="w-full text-left px-2 py-1 text-white hover:bg-white/10 text-[11px] block"
+                      >
+                        Convert to JPG
+                      </button>
+                    </>
+                  )}
+
+                  {currentFile.type === "audio" && (
+                    <>
+                      <button
+                        onClick={() => runAction("Convert to MP3 (320kbps)")}
+                        className="w-full text-left px-2 py-1 text-neon hover:bg-white/10 text-[11px] block"
+                      >
+                        Convert to MP3
+                      </button>
+                      <button
+                        onClick={() => runAction("Convert to WAV (Lossless)")}
+                        className="w-full text-left px-2 py-1 text-white hover:bg-white/10 text-[11px] block"
+                      >
+                        Convert to WAV
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Notification Toast */}
+            {showResult && (
+              <div className="bg-[#0A0A0A] border border-neon p-3 font-mono-x text-xs text-white">
+                <div className="text-neon font-bold">✓ Converted: {showResult.action}</div>
+                <div className="text-white/60 text-[11px]">
+                  Output file created right next to {showResult.file}. Original file backed up to ./backup/.
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    /* ---------- Main Context Menu Page Component ---------- */
+    function ContextMenuPage() {
+      return (
+        <div className="relative min-h-screen w-full text-white flex flex-col justify-between pt-24">
+          <ScrollProgress />
+          <InteractiveBackground />
+          <CustomCursor />
+          <Header current="menu" />
+
+          {/* Hero Banner */}
+          <section className="px-6 md:px-12 max-w-4xl mx-auto pt-8 pb-12 border-b border-white/10 text-center">
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-white/15 bg-white/5 font-mono-x text-xs text-neon mb-6">
+                <span>WINDOWS FILE EXPLORER INTEGRATION</span>
+              </div>
+              <h1 className="font-display font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight leading-none mb-6">
+                RIGHT-CLICK. <span className="text-neon">CONVERTED.</span>
+              </h1>
+              <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                The fastest way to convert files on Windows. Select one file or a hundred files, right-click, and choose your format. No apps to open, no websites to visit.
+              </p>
+            </Reveal>
+          </section>
+
+          {/* Main Content */}
+          <main className="px-6 md:px-12 max-w-4xl mx-auto py-16 space-y-16 flex-1 w-full">
+            {/* Interactive Preview */}
+            <ExplorerSimulator />
+
+            {/* 3 Key Advantages */}
+            <section className="space-y-6">
+              <Reveal>
+                <h2 className="font-display font-bold text-2xl md:text-3xl text-center">
+                  Why right-click conversion is better
+                </h2>
+                <p className="text-white/60 text-center text-sm">
+                  Designed specifically for how Windows users actually manage their files.
+                </p>
+              </Reveal>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                <div className="border border-white/10 bg-[#0A0A0A] p-6 space-y-3 font-mono-x text-xs">
+                  <div className="text-neon text-sm font-bold">01 • BULK CONVERSION</div>
+                  <h3 className="font-display font-bold text-white text-base">Won't freeze your PC</h3>
+                  <p className="text-white/70 font-sans text-sm leading-relaxed">
+                    Select 20 video files at once. AVI Core coordinates them into a single, smooth queue so your computer stays fast and responsive.
+                  </p>
+                </div>
+
+                <div className="border border-white/10 bg-[#0A0A0A] p-6 space-y-3 font-mono-x text-xs">
+                  <div className="text-neon text-sm font-bold">02 • NO ADMIN PASSWORD</div>
+                  <h3 className="font-display font-bold text-white text-base">Works anywhere</h3>
+                  <p className="text-white/70 font-sans text-sm leading-relaxed">
+                    Installs into your standard Windows user account without asking for administrator privileges or annoying security popups.
+                  </p>
+                </div>
+
+                <div className="border border-white/10 bg-[#0A0A0A] p-6 space-y-3 font-mono-x text-xs">
+                  <div className="text-neon text-sm font-bold">03 • AUTO-BACKUP</div>
+                  <h3 className="font-display font-bold text-white text-base">Originals stay untouched</h3>
+                  <p className="text-white/70 font-sans text-sm leading-relaxed">
+                    Never worry about overwriting master recordings. AVI Core copies your original asset to a backup folder before making changes.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          {/* Footer Component */}
+          <footer className="border-t border-white/10 py-12 px-6 md:px-12 w-full text-center font-mono-x text-xs text-white/50 space-y-4 mt-auto">
+            <div className="max-w-[1400px] mx-auto space-y-4">
+              <div className="flex flex-wrap justify-center gap-6 text-white/70">
+                <a href="./index.html" className="hover:text-neon">Home</a>
+                <a href="./converter.html" className="hover:text-neon">Web Converter</a>
+                <a href="./download.html" className="hover:text-neon">Download</a>
+                <a href="./docs.html" className="hover:text-neon">How It Works</a>
+                <a href="./formats.html" className="hover:text-neon">Supported Formats</a>
+                <a href="./context-menu.html" className="text-neon font-bold">Right-Click Menu</a>
+                <a href="./cli.html" className="hover:text-neon">CLI</a>
+                <a href="./faq.html" className="hover:text-neon">FAQ</a>
+                <a href="./llms.txt" className="hover:text-neon">llms.txt</a>
+                <a href="./llms-full.txt" className="hover:text-neon">llms-full.txt</a>
+                <a href="https://github.com/Sahil524/AVI-Core" target="_blank" rel="noopener noreferrer" className="hover:text-neon">GitHub ↗</a>
+              </div>
+              <p className="text-[10px] tracking-widest text-white/40">
+                AVI CORE &nbsp;•&nbsp; 100% OFFLINE WINDOWS MEDIA ENGINE &nbsp;•&nbsp; MIT OPEN SOURCE
+              </p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<ContextMenuPage />);
+  </script>
+</body>
+
+</html>

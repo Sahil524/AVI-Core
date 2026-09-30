@@ -1,0 +1,313 @@
+# AVI Core — Full Project Reference
+
+## 1. Project Identity
+
+- Product Name: AVI Core
+- Alternative Names: AVI-Core, AVICORE, avicore
+- Version: 2.0.0
+- Author: Sahil Sawant
+- License: MIT
+- Platform: Windows 10 & Windows 11 (64-bit x86_64)
+- Repository: https://github.com/Sahil524/AVI-Core
+- Website: https://sahil524.github.io/AVI-Core/
+- Releases: https://github.com/Sahil524/AVI-Core/releases
+
+## 2. Description
+
+AVI Core is an open-source media conversion application for Windows. It converts video, audio, and image files entirely on the user's machine with no file uploads, no internet requirement, no telemetry, and no paywalls.
+
+AVI Core provides three interfaces:
+1. Windows Explorer right-click context menu for converting files without opening a terminal.
+2. Command-line interface (`avicore`) for scriptable automation and batch processing.
+3. In-browser web converter at https://sahil524.github.io/AVI-Core/converter.html for client-side image and audio conversion.
+
+## 3. Architecture
+
+### 3.1 Core Components
+- `app.py`: Main CLI application built with Python Click framework. Contains all conversion logic, FFmpeg orchestration, and format definitions.
+- `context_menu.py`: Windows Explorer shell integration manager. Handles registry operations for right-click context menus and multi-select batch spooling.
+- `avicore/`: Internal package containing pipeline, probe, verifier, atomic commit, batch processing, diagnostics, rules engine, and logging modules.
+- `converter.html`: Standalone browser-based converter using HTML5 Canvas and Web Audio API.
+
+### 3.2 FFmpeg Integration
+AVI Core bundles a static FFmpeg binary. The resolution order is:
+1. PyInstaller bundle path (`sys._MEIPASS/ffmpeg.exe`)
+2. Executable directory (`<sys.executable dir>/bin/ffmpeg.exe`)
+3. Application root (`<app dir>/bin/ffmpeg.exe`)
+4. System PATH (`shutil.which("ffmpeg")`)
+
+No separate FFmpeg or Python installation is required for end users.
+
+### 3.3 Hardware Acceleration
+Video encoding automatically probes for hardware encoders:
+- NVIDIA: `h264_nvenc`
+- Intel: `h264_qsv`
+- AMD: `h264_amf`
+- Fallback: `libx264` (CPU, preset medium, CRF 23)
+
+### 3.4 Safety Mechanisms
+- **Automatic Backup:** Source files are moved to a `./backup/` directory before processing.
+- **Two-Phase Atomic Commit:** Output is written to a `.tmp` staging file, verified (file size, codec presence, stream validation, duration parity), then atomically moved to the final path via `os.replace()`. Failed outputs are deleted.
+- **Explorer Multi-Select Spooling:** A Win32 Named Mutex (`Local\AVICore_Batch_Spool_Mutex`) and temp spool file (`%TEMP%\avicore_spool.txt`) consolidate simultaneous Explorer invocations into a single sequential batch, preventing resource thrashing.
+
+## 4. Supported Formats
+
+### 4.1 Desktop Application (FFmpeg-Backed)
+
+Video containers:
+- MP4: H.264 video + AAC audio (or hardware encoder equivalent)
+- MKV: H.264 + AAC
+- MOV: H.264 + AAC (QuickTime compatible)
+- AVI: MPEG-4/Xvid + MP3
+- WEBM: VP9 + Opus
+- M4V: H.264 + AAC
+- FLV: H.264/FLV1 + AAC/MP3
+- TS: H.264 + AAC (MPEG-2 Transport Stream)
+
+Audio formats:
+- MP3: libmp3lame, 320 kbps
+- WAV: PCM 16-bit uncompressed
+- AAC: Native AAC encoder, 256 kbps
+- FLAC: Lossless compression
+- OGG: libvorbis, VBR quality 6
+- M4A: AAC in M4A container, 256 kbps
+
+Image formats:
+- JPG/JPEG: Huffman optimized, progressive, quality 85
+- PNG: DEFLATE level 9, chunk optimization
+- WEBP: Lossy/lossless with adaptive quality
+- BMP: Uncompressed bitmap
+
+Image alpha handling: When converting RGBA/LA/palette-transparent images to JPEG, AVI Core composites against a white matte to avoid black artifacts.
+
+### 4.2 Web Converter (Browser-Based)
+
+Image output formats: WebP, PNG, JPG (with quality slider)
+Audio output format: WAV (16-bit 44.1kHz PCM via Web Audio API)
+
+Supported input for web conversion:
+- Images: PNG, JPG, JPEG, WebP, BMP
+- Audio: MP3, WAV, AAC, FLAC, OGG
+
+The web converter does NOT support video conversion or MP3 encoding.
+
+## 5. Command-Line Interface
+
+Executable: `avicore.exe` (compiled) or `python app.py` (development)
+
+### 5.1 Global Options
+- `--help` / `-h`: Show command tree
+- `--version`: Show version
+- `--verbose`: Enable debug logging
+- `--dry-run`: Simulate without executing
+
+### 5.2 Video Commands
+
+`avicore video convert <input> <format> [--fast] [--force]`
+- Converts video to target format
+- `--fast`: Stream copy (no re-encoding) when codecs are compatible
+- `--force`: Overwrite existing output
+
+`avicore video mute <input> [--force]`
+- Creates `<name>_muted.<ext>` with audio stripped, video and subtitles preserved
+
+### 5.3 Audio Commands
+
+`avicore audio extract <input> [--force]`
+- Extracts primary audio track from video to native audio format
+
+`avicore audio convert <input> <format> [--force]`
+- Converts between audio formats
+
+### 5.4 Image Commands
+
+`avicore image convert <pattern> <format> [--force]`
+- Converts images; supports wildcard patterns (e.g., `*.png`)
+
+`avicore image compress <pattern> [--quality 1-100] [--force]`
+- Compresses images with adaptive quality (default: 80)
+
+### 5.5 System Commands
+
+`avicore menu install`: Register Explorer context menu
+`avicore menu remove`: Remove Explorer context menu
+`avicore system diagnostics`: Generate diagnostic ZIP bundle
+
+### 5.6 Exit Codes
+- 0: Success
+- 1: Runtime failure
+- 2: Parameter/format error
+- 3: Verification failure
+
+## 6. Windows Explorer Integration
+
+### 6.1 Registration
+Context menus are registered per-user under `HKEY_CURRENT_USER\Software\Classes\SystemFileAssociations\<ext>\shell\AVICore.*`. No administrator elevation required.
+
+### 6.2 Registered File Types
+- Video: .mp4, .mkv, .mov, .avi, .webm, .m4v, .flv, .ts
+- Audio: .mp3, .wav, .aac, .flac, .ogg, .m4a
+- Image: .jpg, .jpeg, .png, .webp, .bmp
+
+### 6.3 Available Context Menu Actions
+Video files: Convert (to each supported format), Fast Convert, Extract Audio, Mute Video
+Audio files: Convert (to each supported audio format)
+Image files: Convert (to each supported image format), Compress
+
+## 7. Web Converter Details
+
+Location: https://sahil524.github.io/AVI-Core/converter.html
+Source file: `converter.html`
+
+Processing: 100% client-side. Files are read using the FileReader API, processed via HTML5 Canvas (images) or Web Audio API (audio), and saved directly to the user's device. No data is sent to any server.
+
+Features:
+- Single file and bulk file conversion
+- Drag-and-drop file selection
+- Per-file progress and status tracking
+- Size savings display
+- Batch ZIP download via JSZip
+
+Limitations:
+- No video conversion (requires FFmpeg, which is desktop-only)
+- No MP3 encoding (Web Audio API encodes to PCM WAV only)
+- Large files (~500MB+) may cause browser memory issues
+- Processing speed depends on the browser and device
+
+## 8. Installation
+
+### 8.1 Inno Setup Installer
+File: `AVI-Core-Setup-v2.0.0.exe`
+- Wizard-based installation
+- Installs to `{autopf}\AVI Core`
+- Adds to system PATH
+- Registers Explorer context menu automatically
+
+### 8.2 PowerShell Script
+```
+powershell -ExecutionPolicy Bypass -File install.ps1
+```
+Or double-click `install.bat`.
+- User-scope installation to `%LOCALAPPDATA%\Programs\AVICore`
+- Machine-scope available with `-Scope Machine`
+- Logs to `%LOCALAPPDATA%\AVICore\logs\installer.log`
+
+### 8.3 Uninstallation
+- Inno Setup: Use Add/Remove Programs or the uninstaller
+- Script: Run `uninstall.bat` or `powershell -ExecutionPolicy Bypass -File uninstall.ps1`
+
+### 8.4 Build From Source
+```
+git clone https://github.com/Sahil524/AVI-Core.git
+cd "AVI Core"
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt -r requirements-dev.txt
+pytest tests/ -v
+powershell -ExecutionPolicy Bypass -File build_binaries.ps1
+```
+
+## 9. Development
+
+### 9.1 Prerequisites
+- Python 3.9+
+- Static `ffmpeg.exe` in `bin/`
+- Git
+
+### 9.2 Dependencies
+Runtime: click, Pillow (see `requirements.txt`)
+Development: pytest, ruff, mypy (see `requirements-dev.txt`)
+
+### 9.3 Project Structure
+```
+app.py              — CLI entry point
+context_menu.py     — Explorer integration
+avicore/            — Internal modules (pipeline, probe, verifier, atomic, batch, diagnostics, rules, logger)
+bin/                — Bundled FFmpeg binary
+tests/              — Test suite (pytest)
+converter.html      — Web converter
+install.ps1         — PowerShell installer
+uninstall.ps1       — PowerShell uninstaller
+install.bat         — Batch installer launcher
+uninstall.bat       — Batch uninstaller launcher
+installer.iss       — Inno Setup script
+build_binaries.ps1  — PyInstaller build script
+avicore.spec        — PyInstaller spec for avicore
+context_menu.spec   — PyInstaller spec for context_menu
+```
+
+### 9.4 Testing
+```
+pytest tests/ -v
+```
+11 tests covering video conversion, audio extraction, image processing, and utility functions.
+
+### 9.5 Linting and Type Checking
+```
+ruff check .
+mypy app.py context_menu.py avicore/
+```
+
+## 10. Documentation
+
+Repository documentation:
+- README.md — Project overview
+- CONTRIBUTING.md — Contribution guidelines
+- SECURITY.md — Security policy
+- CHANGELOG.md — Version history
+- docs/ARCHITECTURE.md — System architecture
+- docs/INSTALLATION.md — Installation guide
+- docs/CLI.md — CLI reference
+- docs/WINDOWS-EXPLORER.md — Explorer integration
+- docs/SUPPORTED-FORMATS.md — Format specification
+- docs/WEB-CONVERTER.md — Web converter reference
+- docs/DEVELOPMENT.md — Developer guide
+
+Website pages:
+- https://sahil524.github.io/AVI-Core/ — Homepage
+- https://sahil524.github.io/AVI-Core/converter.html — Web converter
+- https://sahil524.github.io/AVI-Core/download.html — Download page
+- https://sahil524.github.io/AVI-Core/formats.html — Format reference
+- https://sahil524.github.io/AVI-Core/cli.html — CLI guide
+- https://sahil524.github.io/AVI-Core/context-menu.html — Context menu guide
+- https://sahil524.github.io/AVI-Core/docs.html — Documentation hub
+- https://sahil524.github.io/AVI-Core/faq.html — FAQ
+
+Machine-readable:
+- https://sahil524.github.io/AVI-Core/llms.txt — Concise project summary
+- https://sahil524.github.io/AVI-Core/llms-full.txt — This file
+
+## 11. Version History
+
+### v2.0.0 (Current)
+- Modular architecture with pipeline, probe, verifier, and rules engine
+- Two-phase atomic commits with media verification
+- Win32 Named Mutex batch spooling for Explorer multi-select
+- Hardware acceleration detection (NVENC, QSV, AMF)
+- In-browser web converter (Canvas + Web Audio API)
+- Comprehensive CLI with video, audio, image, menu, and system commands
+- Automatic safety backup vaulting
+- Inno Setup installer and PowerShell scripted installer
+
+### v1.0.0
+- Initial release with basic video/audio/image conversion
+- Windows Explorer context menu integration
+- FFmpeg-based conversion engine
+
+## 12. Limitations
+
+Desktop application:
+- Windows only (10/11 x64). CLI may work on Linux but Explorer integration is Windows-specific.
+- Requires ~200MB disk space for bundled FFmpeg binary.
+- Hardware acceleration availability depends on GPU drivers.
+
+Web converter:
+- No video conversion support.
+- No MP3 or other compressed audio encoding — outputs WAV only.
+- Browser memory limits apply (~500MB+ files may fail).
+- Requires a modern browser with Canvas and Web Audio API support.
+
+## 13. License
+
+MIT License. See LICENSE file in repository.
+FFmpeg is bundled under its own LGPL/GPL license terms.

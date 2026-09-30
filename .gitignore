@@ -7,6 +7,7 @@ __pycache__/
 # Build & Distribution Artifacts
 build/
 dist/
+*.spec
 *.spec.old
 
 # Binaries

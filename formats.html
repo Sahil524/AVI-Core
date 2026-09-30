@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Core Meta Tags -->
+  <title>Supported Formats — Video, Audio & Images | AVI Core</title>
+  <meta name="description"
+    content="Supported media formats in AVI Core. Convert MP4, MKV, MOV, WebM, MP3, WAV, PNG, JPG, and WebP offline on Windows or in your browser. Fast 1-second conversions." />
+  <meta name="keywords"
+    content="MKV to MP4 Windows, MOV to MP4 converter, PNG to WebP offline, JPG to WebP Windows, MP4 to MP3 extractor, offline media converter formats, convert video without uploading" />
+  <meta name="author" content="Sahil Sawant" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Canonical & PWA Manifest -->
+  <link rel="canonical" href="https://sahil524.github.io/AVI-Core/formats.html" />
+  <link rel="manifest" href="./site.webmanifest" />
+  <link rel="icon" type="image/webp" href="./logo.webp" />
+  <link rel="apple-touch-icon" href="./logo.webp" />
+
+  <!-- AI Discovery Links -->
+  <link rel="describedby" type="text/plain" href="llms.txt" />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sahil524.github.io/AVI-Core/formats.html" />
+  <meta property="og:title" content="Supported Formats — Video, Audio & Images | AVI Core" />
+  <meta property="og:description"
+    content="Check format support for MP4, MKV, MOV, WebM, MP3, WAV, PNG, JPG, and WebP. 100% offline conversions on Windows." />
+  <meta property="og:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+  <meta property="og:image:alt" content="AVI Core Supported Formats" />
+  <meta property="og:site_name" content="AVI Core" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://sahil524.github.io/AVI-Core/formats.html" />
+  <meta name="twitter:title" content="Supported Formats — Video, Audio & Images | AVI Core" />
+  <meta name="twitter:description"
+    content="Check format support for MP4, MKV, MOV, WebM, MP3, WAV, PNG, JPG, and WebP." />
+  <meta name="twitter:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://sahil524.github.io/AVI-Core/formats.html#article",
+        "headline": "Supported Formats in AVI Core: Video, Audio, and Image Conversions",
+        "description": "Complete breakdown of video, audio, and image formats supported by AVI Core offline.",
+        "inLanguage": "en-US",
+        "mainEntityOfPage": "https://sahil524.github.io/AVI-Core/formats.html"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://sahil524.github.io/AVI-Core/formats.html#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://sahil524.github.io/AVI-Core/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Formats",
+            "item": "https://sahil524.github.io/AVI-Core/formats.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --neon: #f1ab01;
+      --panel: #0A0A0A;
+      --line: #2A2A2A;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    #root {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--neon);
+      color: #000000;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .font-mono-x {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .text-neon {
+      color: var(--neon);
+    }
+
+    .bg-panel {
+      background-color: var(--panel);
+    }
+
+    .border-line {
+      border-color: var(--line);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--neon);
+      outline-offset: 3px;
+    }
+
+    .btn-hard {
+      border: 1px solid #FFFFFF;
+      background: transparent;
+      color: #FFFFFF;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+    }
+
+    .btn-hard:hover {
+      color: #000000;
+      background: var(--neon);
+      border-color: var(--neon);
+      box-shadow: 0 0 25px rgba(241, 171, 1, 0.4);
+    }
+
+    .bg-grid-pattern {
+      background-size: 48px 48px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    .scanlines {
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0) 50%,
+          rgba(0, 0, 0, 0.35) 50%,
+          rgba(0, 0, 0, 0.35));
+      background-size: 100% 4px;
+    }
+
+    body.has-custom-cursor,
+    body.has-custom-cursor a,
+    body.has-custom-cursor button {
+      cursor: none;
+    }
+
+    @media (pointer: coarse) {
+      body.has-custom-cursor,
+      body.has-custom-cursor a,
+      body.has-custom-cursor button {
+        cursor: auto !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased">
+  <div id="root">
+    <noscript>
+      <header style="padding: 2rem; text-align: center; border-bottom: 1px solid #333;">
+        <h1>Supported Formats — Video, Audio & Images</h1>
+        <p>Convert MP4, MKV, MOV, WebM, MP3, WAV, PNG, JPG, and WebP on Windows.</p>
+        <p><a href="./index.html" style="color: #f1ab01;">Return to Homepage</a></p>
+      </header>
+    </noscript>
+  </div>
+
+  <script type="text/babel">
+    const FM = window.Motion || window.framerMotion;
+    const { motion, AnimatePresence, useMotionValue, useSpring, useTransform } = FM;
+    const MotionConfig = FM.MotionConfig || (({ children }) => children);
+    const EASE = [0.16, 1, 0.3, 1];
+
+    /* ---------- Scroll Progress ---------- */
+    function ScrollProgress() {
+      const { scrollYProgress } = FM.useScroll();
+      const scaleX = useSpring(scrollYProgress, { stiffness: 400, damping: 30, restDelta: 0.001 });
+
+      return (
+        <motion.div
+          style={{ scaleX, transformOrigin: "left" }}
+          className="fixed top-0 left-0 right-0 h-[3px] bg-neon z-[99999] pointer-events-none shadow-[0_0_14px_rgba(241,171,1,0.7)]"
+        />
+      );
+    }
+
+    /* ---------- Scroll Reveal ---------- */
+    function Reveal({ children, className = "", delay = 0, y = 20, as = "div" }) {
+      const Tag = motion[as] || motion.div;
+      return (
+        <Tag
+          className={className}
+          initial={{ opacity: 0, y }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.6, ease: EASE, delay: delay / 1000 }}
+        >
+          {children}
+        </Tag>
+      );
+    }
+
+    /* ---------- Interactive Background ---------- */
+    function InteractiveBackground() {
+      const mouseX = useMotionValue(-1000);
+      const mouseY = useMotionValue(-1000);
+      const mouseX2 = useMotionValue(-1000);
+      const mouseY2 = useMotionValue(-1000);
+
+      const sx = useSpring(mouseX, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sy = useSpring(mouseY, { stiffness: 120, damping: 20, mass: 0.5 });
+      const sx2 = useSpring(mouseX2, { stiffness: 80, damping: 22, mass: 0.6 });
+      const sy2 = useSpring(mouseY2, { stiffness: 80, damping: 22, mass: 0.6 });
+
+      React.useEffect(() => {
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            mouseX.set(e.clientX);
+            mouseY.set(e.clientY);
+            mouseX2.set(window.innerWidth - e.clientX);
+            mouseY2.set(window.innerHeight - e.clientY);
+          });
+        };
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+          window.addEventListener("mousemove", move, { passive: true });
+        }
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+        };
+      }, [mouseX, mouseY, mouseX2, mouseY2]);
+
+      const glow1 = useTransform(
+        [sx, sy],
+        ([x, y]) => `radial-gradient(650px circle at ${x}px ${y}px, rgba(241, 171, 1, 0.22), transparent 65%)`
+      );
+
+      const glow2 = useTransform(
+        [sx2, sy2],
+        ([x, y]) => `radial-gradient(500px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.05), transparent 60%)`
+      );
+
+      return (
+        <div aria-hidden="true" style={{ position: "fixed", inset: 0, zIndex: -1, pointerEvents: "none", overflow: "hidden" }}>
+          <motion.div style={{ position: "absolute", inset: 0, background: glow1, willChange: "background" }} />
+          <motion.div style={{ position: "absolute", inset: 0, background: glow2, willChange: "background" }} />
+          <div className="absolute inset-0 bg-grid-pattern opacity-60" />
+          <div className="absolute inset-0 overflow-hidden opacity-30">
+            <div className="absolute top-[20%] left-[15%] w-1.5 h-1.5 rounded-full bg-neon animate-ping duration-1000" />
+            <div className="absolute top-[60%] left-[80%] w-1 h-1 rounded-full bg-white animate-pulse" />
+            <div className="absolute top-[75%] left-[25%] w-1.5 h-1.5 rounded-full bg-neon/80 animate-pulse" />
+          </div>
+          <svg className="fixed inset-0 w-full h-full pointer-events-none opacity-[0.03] z-0 mix-blend-overlay">
+            <filter id="noiseFilter">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+          </svg>
+        </div>
+      );
+    }
+
+    /* ---------- Custom Cursor ---------- */
+    function CustomCursor() {
+      const [enabled, setEnabled] = React.useState(false);
+      const [hovering, setHovering] = React.useState(false);
+      const x = useMotionValue(-100);
+      const y = useMotionValue(-100);
+      const sx = useSpring(x, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const sy = useSpring(y, { stiffness: 1000, damping: 40, mass: 0.12 });
+      const enabledRef = React.useRef(false);
+
+      React.useEffect(() => {
+        if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) return;
+
+        let rafId = null;
+        const move = (e) => {
+          if (rafId) cancelAnimationFrame(rafId);
+          rafId = requestAnimationFrame(() => {
+            x.set(e.clientX);
+            y.set(e.clientY);
+            if (!enabledRef.current) {
+              enabledRef.current = true;
+              setEnabled(true);
+              document.body.classList.add("has-custom-cursor");
+            }
+          });
+        };
+
+        const isInteractive = (el) => {
+          if (!el || !el.closest) return false;
+          return Boolean(el.closest("a, button, [role='button'], input, select, textarea, .btn-hard"));
+        };
+
+        const over = (e) => { if (isInteractive(e.target)) setHovering(true); };
+        const out = (e) => { if (isInteractive(e.target)) setHovering(false); };
+
+        window.addEventListener("mousemove", move, { passive: true });
+        document.addEventListener("mouseover", over, { passive: true });
+        document.addEventListener("mouseout", out, { passive: true });
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+          window.removeEventListener("mousemove", move);
+          document.removeEventListener("mouseover", over);
+          document.removeEventListener("mouseout", out);
+          document.body.classList.remove("has-custom-cursor");
+        };
+      }, [x, y]);
+
+      if (!enabled) return null;
+
+      return (
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            x: sx,
+            y: sy,
+            zIndex: 9999,
+            pointerEvents: "none",
+            willChange: "transform",
+          }}
+        >
+          <motion.div
+            style={{ transform: "translate(-50%, -50%)", borderColor: "#f1ab01" }}
+            animate={{
+              opacity: enabled ? 1 : 0,
+              width: hovering ? 46 : 16,
+              height: hovering ? 46 : 16,
+              backgroundColor: hovering ? "rgba(241,171,1,0)" : "#f1ab01",
+              borderWidth: hovering ? 1.5 : 0,
+            }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="rounded-full border"
+          />
+        </motion.div>
+      );
+    }
+
+    /* ---------- Navigation Header Component ---------- */
+    function Header({ current = "formats" }) {
+      const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+      const navLinks = [
+        { label: "Home", href: "./index.html", key: "home" },
+        { label: "Web Converter", href: "./converter.html", key: "converter" },
+        { label: "Download", href: "./download.html", key: "download" },
+        { label: "How It Works", href: "./docs.html", key: "docs" },
+        { label: "Formats", href: "./formats.html", key: "formats" },
+        { label: "Right-Click Menu", href: "./context-menu.html", key: "menu" },
+        { label: "CLI", href: "./cli.html", key: "cli" },
+        { label: "FAQ", href: "./faq.html", key: "faq" },
+      ];
+
+      return (
+        <header className="fixed top-0 left-0 w-full z-50 bg-black/85 backdrop-blur-md border-b border-white/10 px-6 md:px-10 py-4 transition-all">
+          <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+            <a href="./index.html" className="flex items-center gap-3 group" aria-label="AVI Core Home">
+              <img src="./logo.webp" alt="AVI Core Logo" width="36" height="36" className="object-contain transition-transform group-hover:scale-105" />
+              <div className="flex flex-col text-left">
+                <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-neon transition-colors">AVI CORE</span>
+                <span className="font-mono-x text-[9px] text-white/50 tracking-widest">OFFLINE ENGINE</span>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-6 font-mono-x text-xs tracking-wider">
+              {navLinks.map((link) => {
+                const isActive = current === link.key;
+                return (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    className={`transition-colors py-1 ${
+                      isActive ? "text-neon font-bold" : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Actions */}
+            <div className="hidden sm:flex items-center gap-4">
+              <a
+                href="https://github.com/Sahil524/AVI-Core"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono-x text-xs text-white/70 hover:text-neon flex items-center gap-1.5 transition-colors border border-white/15 px-3 py-1.5"
+              >
+                <span>GitHub</span>
+                <span className="text-[10px] text-white/40">↗</span>
+              </a>
+              <a
+                href="./download.html"
+                className="btn-hard px-4 py-1.5 font-mono-x text-xs tracking-wider uppercase text-neon border-neon/50 hover:border-neon"
+              >
+                Download App
+              </a>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-white/80 hover:text-neon p-2 focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                {mobileMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile Menu Dropdown */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                id="mobile-nav-menu"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="lg:hidden border-t border-white/10 mt-3 pt-4 pb-4 flex flex-col gap-3 font-mono-x text-sm"
+              >
+                {navLinks.map((link) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`py-1.5 px-2 ${current === link.key ? "text-neon font-bold bg-white/5" : "text-white/70"}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </header>
+      );
+    }
+
+    /* ---------- Interactive Format & Compatibility Checker ---------- */
+    function FormatChecker() {
+      const [category, setCategory] = React.useState("video");
+      const [fromFmt, setFromFmt] = React.useState("mkv");
+      const [toFmt, setToFmt] = React.useState("mp4");
+
+      const options = {
+        video: ["mp4", "mkv", "mov", "webm", "avi", "ts"],
+        audio: ["mp3", "wav", "flac", "aac", "ogg"],
+        image: ["png", "jpg", "webp", "bmp"]
+      };
+
+      const changeCategory = (cat) => {
+        setCategory(cat);
+        const list = options[cat];
+        setFromFmt(list[0]);
+        setToFmt(list[1] || list[0]);
+      };
+
+      const isFastStreamCopy = (fromFmt === "mkv" && toFmt === "mp4") || (fromFmt === "mov" && toFmt === "mp4");
+
+      return (
+        <div className="border border-white/10 bg-[#0A0A0A] p-6 md:p-8 space-y-6">
+          <div className="flex items-center gap-2 border-b border-white/10 pb-4">
+            <span className="w-2.5 h-2.5 rounded-full bg-neon animate-pulse" />
+            <span className="font-mono-x text-xs tracking-widest text-white/70 uppercase">Format Compatibility Checker</span>
+          </div>
+
+          {/* Category Tabs */}
+          <div role="tablist" aria-label="Media Categories" className="flex gap-2">
+            {["video", "audio", "image"].map((cat) => (
+              <button
+                key={cat}
+                role="tab"
+                aria-selected={category === cat}
+                onClick={() => changeCategory(cat)}
+                className={`font-mono-x text-xs px-4 py-2 uppercase border transition-all ${
+                  category === cat
+                    ? "border-neon bg-neon/15 text-neon font-bold shadow-[0_0_12px_rgba(241,171,1,0.25)]"
+                    : "border-white/15 text-white/70 hover:border-white/40"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Selector Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label className="font-mono-x text-[10px] text-white/50 uppercase block mb-2">Convert From:</label>
+              <div className="flex flex-wrap gap-2">
+                {options[category].map((fmt) => (
+                  <button
+                    key={fmt}
+                    onClick={() => setFromFmt(fmt)}
+                    className={`font-mono-x text-xs px-3 py-1.5 uppercase border transition-all ${
+                      fromFmt === fmt
+                        ? "border-neon bg-neon/15 text-neon font-bold shadow-[0_0_12px_rgba(241,171,1,0.25)]"
+                        : "border-white/10 text-white/60 hover:text-white"
+                    }`}
+                  >
+                    .{fmt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="font-mono-x text-[10px] text-white/50 uppercase block mb-2">Convert To:</label>
+              <div className="flex flex-wrap gap-2">
+                {options[category].map((fmt) => (
+                  <button
+                    key={fmt}
+                    onClick={() => setToFmt(fmt)}
+                    className={`font-mono-x text-xs px-3 py-1.5 uppercase border transition-all ${
+                      toFmt === fmt
+                        ? "border-neon bg-neon/15 text-neon font-bold shadow-[0_0_12px_rgba(241,171,1,0.25)]"
+                        : "border-white/10 text-white/60 hover:text-white"
+                    }`}
+                  >
+                    .{fmt}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Result Card */}
+          <div className="bg-black border border-white/15 p-5 space-y-3 font-mono-x text-xs">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+              <span className="text-neon font-bold uppercase text-sm">.{fromFmt} ➔ .{toFmt}</span>
+              <span className="text-emerald-400 font-bold">✓ Fully Supported</span>
+            </div>
+
+            <p className="text-white/80 font-sans text-sm leading-relaxed">
+              {isFastStreamCopy ? (
+                <span>
+                  <strong>⚡ Instant 1-Second Fast Convert!</strong> Because MKV and MP4 share the same video stream, AVI Core can repackage the file in under a second with zero quality loss.
+                </span>
+              ) : (
+                <span>
+                  AVI Core converts your .{fromFmt} file directly into .{toFmt} using your device's hardware, without uploading anything to the internet.
+                </span>
+              )}
+            </p>
+
+            <div className="text-white/50 text-[11px] pt-1">
+              How to do it: Right-click file in File Explorer ➔ AVI Core ➔ Convert ➔ to {toFmt.toUpperCase()}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ---------- Main Formats Page Component ---------- */
+    function FormatsPage() {
+      return (
+        <div className="relative min-h-screen w-full text-white flex flex-col justify-between pt-24">
+          <ScrollProgress />
+          <InteractiveBackground />
+          <CustomCursor />
+          <Header current="formats" />
+
+          {/* Hero Banner */}
+          <section className="px-6 md:px-12 max-w-4xl mx-auto pt-8 pb-12 border-b border-white/10 text-center">
+            <Reveal>
+              <div className="inline-flex items-center gap-2 px-3 py-1 border border-white/15 bg-white/5 font-mono-x text-xs text-neon mb-6">
+                <span>SUPPORTED FORMATS GUIDE</span>
+              </div>
+              <h1 className="font-display font-bold text-3xl sm:text-5xl md:text-6xl tracking-tight leading-none mb-6">
+                CONVERT THE FORMATS <span className="text-neon">YOU USE EVERY DAY.</span>
+              </h1>
+              <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                AVI Core handles the video, audio, and photo files you work with every day. No confusing codec settings — just pick your file and click convert.
+              </p>
+            </Reveal>
+          </section>
+
+          {/* Main Content */}
+          <main className="px-6 md:px-12 max-w-4xl mx-auto py-16 space-y-16 flex-1 w-full">
+            {/* Interactive Checker */}
+            <FormatChecker />
+
+            {/* Video Formats */}
+            <section className="space-y-4">
+              <Reveal>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono-x text-xs text-neon bg-neon/10 border border-neon/30 px-2 py-0.5">VIDEO</span>
+                  <h2 className="font-display font-bold text-2xl">Supported Video Formats</h2>
+                </div>
+                <p className="text-white/70 text-sm">
+                  Convert clips from your phone, screen recordings, camera footage, or movies:
+                </p>
+              </Reveal>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono-x text-xs">
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">MP4 (.mp4)</div>
+                  <p className="text-white/70 font-sans text-xs">Plays on everything — phones, Smart TVs, websites, and social media.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">MKV (.mkv)</div>
+                  <p className="text-white/70 font-sans text-xs">Popular for high quality movies with multiple audio languages and subtitles.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">MOV (.mov)</div>
+                  <p className="text-white/70 font-sans text-xs">Default video format recorded by iPhones, iPads, and professional cameras.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">WebM (.webm)</div>
+                  <p className="text-white/70 font-sans text-xs">Modern, lightweight video format used across modern web browsers.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Audio Formats */}
+            <section className="space-y-4">
+              <Reveal>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono-x text-xs text-neon bg-neon/10 border border-neon/30 px-2 py-0.5">AUDIO</span>
+                  <h2 className="font-display font-bold text-2xl">Supported Audio Formats</h2>
+                </div>
+                <p className="text-white/70 text-sm">
+                  Convert music, voice memos, podcasts, or extract audio from videos:
+                </p>
+              </Reveal>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono-x text-xs">
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">MP3 (.mp3)</div>
+                  <p className="text-white/70 font-sans text-xs">The universal audio format. High 320kbps quality for crystal-clear sound.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">WAV (.wav)</div>
+                  <p className="text-white/70 font-sans text-xs">Uncompressed studio quality audio. Perfect for audio editing and production.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">FLAC (.flac)</div>
+                  <p className="text-white/70 font-sans text-xs">Lossless CD-quality compression for audiophile music collections.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">AAC / M4A (.aac, .m4a)</div>
+                  <p className="text-white/70 font-sans text-xs">Modern audio format used by Apple Music and YouTube.</p>
+                </div>
+              </div>
+            </section>
+
+            {/* Image Formats */}
+            <section className="space-y-4">
+              <Reveal>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono-x text-xs text-neon bg-neon/10 border border-neon/30 px-2 py-0.5">IMAGES</span>
+                  <h2 className="font-display font-bold text-2xl">Supported Image Formats</h2>
+                </div>
+                <p className="text-white/70 text-sm">
+                  Convert photos, graphics, and logos. Shrink file sizes by up to 80% without losing visual sharpness:
+                </p>
+              </Reveal>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono-x text-xs">
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">WebP (.webp)</div>
+                  <p className="text-white/70 font-sans text-xs">Modern image format created by Google. Much smaller than PNG and JPG with sharp quality.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">PNG (.png)</div>
+                  <p className="text-white/70 font-sans text-xs">Supports transparent backgrounds. Great for logos, icons, and screenshots.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">JPG / JPEG (.jpg)</div>
+                  <p className="text-white/70 font-sans text-xs">Standard format for photos from digital cameras and smartphones.</p>
+                </div>
+                <div className="border border-white/10 bg-[#0A0A0A] p-4 space-y-1.5">
+                  <div className="text-neon font-bold text-sm">BMP (.bmp)</div>
+                  <p className="text-white/70 font-sans text-xs">Uncompressed Windows bitmap images.</p>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          {/* Footer Component */}
+          <footer className="border-t border-white/10 py-12 px-6 md:px-12 w-full text-center font-mono-x text-xs text-white/50 space-y-4 mt-auto">
+            <div className="max-w-[1400px] mx-auto space-y-4">
+              <div className="flex flex-wrap justify-center gap-6 text-white/70">
+                <a href="./index.html" className="hover:text-neon">Home</a>
+                <a href="./converter.html" className="hover:text-neon">Web Converter</a>
+                <a href="./download.html" className="hover:text-neon">Download</a>
+                <a href="./docs.html" className="hover:text-neon">How It Works</a>
+                <a href="./formats.html" className="text-neon font-bold">Supported Formats</a>
+                <a href="./context-menu.html" className="hover:text-neon">Right-Click Menu</a>
+                <a href="./cli.html" className="hover:text-neon">CLI</a>
+                <a href="./faq.html" className="hover:text-neon">FAQ</a>
+                <a href="./llms.txt" className="hover:text-neon">llms.txt</a>
+                <a href="./llms-full.txt" className="hover:text-neon">llms-full.txt</a>
+                <a href="https://github.com/Sahil524/AVI-Core" target="_blank" rel="noopener noreferrer" className="hover:text-neon">GitHub ↗</a>
+              </div>
+              <p className="text-[10px] tracking-widest text-white/40">
+                AVI CORE &nbsp;•&nbsp; 100% OFFLINE WINDOWS MEDIA ENGINE &nbsp;•&nbsp; MIT OPEN SOURCE
+              </p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<FormatsPage />);
+  </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 {
-  "name": "AVI Core — Offline Media Converter for Windows",
+  "name": "AVI Core — Open-Source Offline Media Converter for Windows",
   "short_name": "AVI Core",
-  "description": "Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration.",
+  "description": "Free open-source offline media converter for Windows with File Explorer right-click integration and developer CLI. Zero uploads, zero telemetry, local hardware acceleration.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

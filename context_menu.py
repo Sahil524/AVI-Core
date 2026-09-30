@@ -3,6 +3,7 @@ from __future__ import annotations
 import ctypes
 import logging
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -221,6 +222,8 @@ def build_command(avicore_path: Path, file_path: Path, action: str, param: str) 
 
     Returns the command elements as a list of strings, or None if the action is skipped.
     """
+    base_cmd = [sys.executable, str(avicore_path)] if avicore_path.suffix.lower() == ".py" else [str(avicore_path)]
+
     if action == "convert":
         target_format = determine_target_format(file_path, action, param)
         if target_format is None:
@@ -228,24 +231,21 @@ def build_command(avicore_path: Path, file_path: Path, action: str, param: str) 
 
         file_type = detect_file_type(file_path)
         if file_type == "image":
-            return [
-                str(avicore_path),
+            return base_cmd + [
                 "image",
                 "convert",
                 str(file_path),
                 target_format,
             ]
         elif file_type == "video":
-            return [
-                str(avicore_path),
+            return base_cmd + [
                 "video",
                 "convert",
                 str(file_path),
                 target_format,
             ]
         elif file_type == "audio":
-            return [
-                str(avicore_path),
+            return base_cmd + [
                 "audio",
                 "convert",
                 str(file_path),
@@ -259,8 +259,7 @@ def build_command(avicore_path: Path, file_path: Path, action: str, param: str) 
 
         file_type = detect_file_type(file_path)
         if file_type == "video":
-            return [
-                str(avicore_path),
+            return base_cmd + [
                 "video",
                 "convert",
                 str(file_path),
@@ -269,16 +268,20 @@ def build_command(avicore_path: Path, file_path: Path, action: str, param: str) 
             ]
 
     elif action == "compress":
-        return [str(avicore_path), "image", "compress", str(file_path)]
+        return base_cmd + ["image", "compress", str(file_path)]
 
     elif action == "mute":
-        return [str(avicore_path), "video", "mute", str(file_path), "--force"]
+        return base_cmd + ["video", "mute", str(file_path), "--force"]
 
     elif action == "extract-audio":
-        return [str(avicore_path), "audio", "extract", str(file_path)]
+        return base_cmd + ["audio", "extract", str(file_path)]
 
     elif action == "open":
-        return ["cmd.exe", "/k", f'"{avicore_path}" help']
+        if avicore_path.suffix.lower() == ".py":
+            cmd_target = f'"{sys.executable}" "{avicore_path}"'
+        else:
+            cmd_target = f'"{avicore_path}"'
+        return ["cmd.exe", "/k", f"{cmd_target} help"]
 
     return None
 
@@ -415,13 +418,28 @@ def find_avicore() -> Path:
     candidates = [
         exe_dir / "avicore.exe",
         exe_dir / "avicore" / "avicore.exe",
+        exe_dir / "dist" / "avicore" / "avicore.exe",
         Path(r"C:\Program Files\AVI Core\avicore\avicore.exe"),
         Path(r"C:\Program Files\AVI Core\avicore.exe"),
     ]
 
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        candidates.extend([
+            Path(local_app_data) / "Programs" / "AVICore" / "avicore" / "avicore.exe",
+            Path(local_app_data) / "Programs" / "AVICore" / "avicore.exe",
+        ])
+
     for candidate in candidates:
         if candidate.exists():
             return candidate.absolute()
+
+    which_avi = shutil.which("avicore") or shutil.which("avicore.exe")
+    if which_avi:
+        return Path(which_avi).absolute()
+
+    if not getattr(sys, "frozen", False) and (exe_dir / "app.py").exists():
+        return (exe_dir / "app.py").absolute()
 
     return Path("avicore.exe")
 
@@ -504,7 +522,7 @@ def delete_key_recursive(key, subkey: str) -> bool:
     return success
 
 
-def register_menu_keys(register: bool = True) -> bool:
+def register_menu_keys(register: bool = True, silent: bool = False) -> bool:
     """Register or unregister context menu registry entries.
 
     Uses per-extension SystemFileAssociations\\.ext approach so the menu appears
@@ -550,6 +568,19 @@ def register_menu_keys(register: bool = True) -> bool:
     if clean_failed and not is_admin():
         logger.warning("Partial registry cleanup failure. Re-run as Administrator for full HKLM cleanup if needed.")
 
+    # If unregistering as admin, also clean HKCU user keys to avoid orphan entries
+    if not register and is_admin():
+        hkcu_prefix = r"Software\Classes"
+        for base in [
+            rf"{hkcu_prefix}\SystemFileAssociations\image\shell\AVICore",
+            rf"{hkcu_prefix}\SystemFileAssociations\video\shell\AVICore",
+            rf"{hkcu_prefix}\SystemFileAssociations\audio\shell\AVICore",
+        ] + [
+            rf"{hkcu_prefix}\SystemFileAssociations\.{ext}\shell\AVICore"
+            for ext in IMAGE_FORMATS | VIDEO_FORMATS | AUDIO_FORMATS
+        ]:
+            delete_key_recursive(winreg.HKEY_CURRENT_USER, base)
+
     if not register:
         message = "AVI Core context menu unregistered successfully!"
         logger.info(message)
@@ -558,7 +589,8 @@ def register_menu_keys(register: bool = True) -> bool:
                 print(message)
             except Exception:
                 pass
-        show_info_dialog("AVI Core Context Menu", message)
+        if not silent:
+            show_info_dialog("AVI Core Context Menu", message)
         refresh_explorer_shell()
         return True
 
@@ -628,7 +660,7 @@ def register_menu_keys(register: bool = True) -> bool:
                 fk = f"{cv}\\shell\\{fmt.upper()}"
                 set_val(fk, "MUIVerb", f"Convert To {fmt.upper()}")
                 set_val(fk, "MultiSelectModel", "Player")
-                set_val(f"{fk}\\command", "", f'"{exe_path}" "fast-convert" "{fmt}" "%1"')
+                set_val(f"{fk}\\command", "", f'"{exe_path}" "convert" "{fmt}" "%1"')
 
             # Fast Convert submenu — excludes source extension
             fc = f"{base}\\shell\\2_FastConvert"
@@ -699,7 +731,8 @@ def register_menu_keys(register: bool = True) -> bool:
                 print(message)
             except Exception:
                 pass
-        show_info_dialog("AVI Core Context Menu", message)
+        if not silent:
+            show_info_dialog("AVI Core Context Menu", message)
         refresh_explorer_shell()
         return True
 
@@ -707,13 +740,15 @@ def register_menu_keys(register: bool = True) -> bool:
         message = "Error: Registry write failure. Permission denied.\nPlease run this command as Administrator (Elevated Command Prompt)."  # noqa: E501
         logger.exception("Permission denied during registry key creation: %s", exc)
         safe_stderr_write(message)
-        show_error_dialog("AVI Core Registration Error", message)
+        if not silent:
+            show_error_dialog("AVI Core Registration Error", message)
         return False
     except Exception as exc:
         message = f"Error: Unexpected registry write failure: {exc}"
         logger.exception("Unexpected exception during registry key creation: %s", exc)
         safe_stderr_write(message)
-        show_error_dialog("AVI Core Registration Error", message)
+        if not silent:
+            show_error_dialog("AVI Core Registration Error", message)
         return False
 
 
@@ -722,11 +757,12 @@ def main() -> None:
 
     Expects command line arguments:
         context_menu.exe <action> <param> <file_path_1> [file_path_2] ...
-        context_menu.exe register
-        context_menu.exe unregister
+        context_menu.exe register [--silent]
+        context_menu.exe unregister [--silent]
     """
-    if len(sys.argv) == 2 and sys.argv[1] in {"register", "unregister"}:
-        success = register_menu_keys(sys.argv[1] == "register")
+    if len(sys.argv) >= 2 and sys.argv[1] in {"register", "unregister"}:
+        silent = any(arg in {"--silent", "-s", "/s"} for arg in sys.argv[2:])
+        success = register_menu_keys(sys.argv[1] == "register", silent=silent)
         sys.exit(0 if success else 1)
 
     if len(sys.argv) < 4:

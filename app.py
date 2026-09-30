@@ -3,6 +3,7 @@ from __future__ import annotations
 import glob
 import logging
 import os
+import shutil
 import signal
 import subprocess
 import sys
@@ -51,11 +52,26 @@ def setup_logging(verbose: bool) -> None:
 
 def resolve_ffmpeg() -> Path:
     ext = ".exe" if os.name == "nt" else ""
+    candidates: list[Path] = []
     if hasattr(sys, "_MEIPASS"):
-        candidate = Path(sys._MEIPASS) / f"ffmpeg{ext}"
-    else:
-        candidate = Path(__file__).parent / "bin" / f"ffmpeg{ext}"
-    return candidate
+        candidates.append(Path(sys._MEIPASS) / f"ffmpeg{ext}")
+    if getattr(sys, "frozen", False):
+        exe_dir = Path(sys.executable).parent
+        candidates.append(exe_dir / f"ffmpeg{ext}")
+        candidates.append(exe_dir / "_internal" / f"ffmpeg{ext}")
+        candidates.append(exe_dir / "bin" / f"ffmpeg{ext}")
+    candidates.append(Path(__file__).resolve().parent / "bin" / f"ffmpeg{ext}")
+    candidates.append(Path(__file__).resolve().parent / f"ffmpeg{ext}")
+
+    for c in candidates:
+        if c.exists():
+            return c
+
+    which_ffmpeg = shutil.which("ffmpeg")
+    if which_ffmpeg:
+        return Path(which_ffmpeg)
+
+    return candidates[0] if candidates else Path(f"ffmpeg{ext}")
 
 
 def verify_ffmpeg(ffmpeg: Path) -> None:
@@ -165,7 +181,7 @@ def expand_inputs(inputs) -> list[Path]:
 # ============================================================
 
 
-@click.group(context_settings={"help_option_names": []})
+@click.group(context_settings={"help_option_names": ["-h", "--help"]})
 @click.option("--verbose", is_flag=True, help="Enable detailed logging to avicore.log")
 @click.option("--dry-run", is_flag=True, help="Preview commands without executing")
 @click.pass_context
@@ -209,6 +225,9 @@ USAGE:
   avicore audio convert <files> <format>
   avicore audio extract <video>
 
+  avicore menu install
+  avicore menu remove
+
   avicore system diagnostics
 
 GLOBAL OPTIONS:
@@ -217,6 +236,104 @@ GLOBAL OPTIONS:
  --verbose     Debug logging
 
 """)
+
+
+# ============================================================
+# CONTEXT MENU INTEGRATION
+# ============================================================
+
+
+@cli.group(help="Manage Windows Explorer context menu integration.")
+def menu() -> None:
+    pass
+
+
+@menu.command("install", help="Register Windows Explorer right-click context menu.")
+def menu_install() -> None:
+    success = False
+    if not getattr(sys, "frozen", False) and (Path(__file__).resolve().parent / "context_menu.py").exists():
+        try:
+            import context_menu
+
+            success = context_menu.register_menu_keys(register=True, silent=True)
+        except Exception as exc:
+            raise click.ClickException(f"Failed to register context menu: {exc}") from exc
+    else:
+        cm_exe = None
+        candidates = [
+            Path(sys.executable).parent / "context_menu.exe",
+            Path(sys.executable).parent.parent / "context_menu.exe",
+            Path(__file__).resolve().parent / "dist" / "context_menu.exe",
+            Path(r"C:\Program Files\AVI Core\context_menu.exe"),
+        ]
+        local_app_data = os.environ.get("LOCALAPPDATA")
+        if local_app_data:
+            candidates.append(Path(local_app_data) / "Programs" / "AVICore" / "context_menu.exe")
+
+        for c in candidates:
+            if c.exists():
+                cm_exe = c
+                break
+
+        if cm_exe:
+            res = subprocess.run([str(cm_exe), "register", "--silent"])
+            success = res.returncode == 0
+        else:
+            try:
+                import context_menu
+
+                success = context_menu.register_menu_keys(register=True, silent=True)
+            except Exception as exc:
+                raise click.ClickException(f"Failed to register context menu: {exc}") from exc
+
+    if success:
+        click.secho("Windows Explorer context menu registered successfully.", fg="green")
+    else:
+        raise click.ClickException("Context menu registration failed. Try running terminal as Administrator.")
+
+
+@menu.command("remove", help="Unregister Windows Explorer right-click context menu.")
+def menu_remove() -> None:
+    success = False
+    if not getattr(sys, "frozen", False) and (Path(__file__).resolve().parent / "context_menu.py").exists():
+        try:
+            import context_menu
+
+            success = context_menu.register_menu_keys(register=False, silent=True)
+        except Exception as exc:
+            raise click.ClickException(f"Failed to unregister context menu: {exc}") from exc
+    else:
+        cm_exe = None
+        candidates = [
+            Path(sys.executable).parent / "context_menu.exe",
+            Path(sys.executable).parent.parent / "context_menu.exe",
+            Path(__file__).resolve().parent / "dist" / "context_menu.exe",
+            Path(r"C:\Program Files\AVI Core\context_menu.exe"),
+        ]
+        local_app_data = os.environ.get("LOCALAPPDATA")
+        if local_app_data:
+            candidates.append(Path(local_app_data) / "Programs" / "AVICore" / "context_menu.exe")
+
+        for c in candidates:
+            if c.exists():
+                cm_exe = c
+                break
+
+        if cm_exe:
+            res = subprocess.run([str(cm_exe), "unregister", "--silent"])
+            success = res.returncode == 0
+        else:
+            try:
+                import context_menu
+
+                success = context_menu.register_menu_keys(register=False, silent=True)
+            except Exception as exc:
+                raise click.ClickException(f"Failed to unregister context menu: {exc}") from exc
+
+    if success:
+        click.secho("Windows Explorer context menu removed successfully.", fg="green")
+    else:
+        raise click.ClickException("Context menu removal failed. Try running terminal as Administrator.")
 
 
 # ============================================================
@@ -663,6 +780,8 @@ def audio_extract(ctx: click.Context, input: str, force: bool) -> None:
         if success:
             CREATED_FILES.append(dst)
             click.secho(f"Extracted -> {dst}", fg="green")
+        else:
+            click.secho(f"Extraction failed: {_err_msg}", fg="red")
 
 
 @audio.command(
@@ -712,6 +831,8 @@ def audio_convert(ctx: click.Context, input: str, format: str, force: bool) -> N
         if success:
             CREATED_FILES.append(dst)
             click.secho(f"Converted -> {dst}", fg="green")
+        else:
+            click.secho(f"Audio conversion failed: {_err_msg}", fg="red")
 
 
 # ============================================================

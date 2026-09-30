@@ -6,16 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Core Meta Tags -->
-  <title>AVI Core — Offline Media Converter for Windows</title>
+  <title>AVI Core — Open-Source Offline Media Converter for Windows</title>
   <meta name="description"
-    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click context menu integration. Convert MKV, MP4, PNG, WEBP instantly with AVI Core." />
+    content="Free open-source offline media converter for Windows with File Explorer right-click integration and CLI. Convert MKV to MP4, MOV to MP4, WebM to MP4, PNG to WebP, extract MP3 audio locally with zero uploads and zero lag." />
   <meta name="keywords"
-    content="offline video converter, free Windows media converter, right click video converter, offline MP4 converter, MKV converter Windows, AVI Core, image converter webp png, local ffmpeg converter, Windows context menu converter, batch image converter" />
+    content="AVI Core, AVI-Core, AVICORE, avicore, AVI Core Windows, offline media converter Windows, open source media converter Windows, image converter Windows, video converter Windows, audio converter Windows, batch image converter Windows, right click media converter, Windows Explorer media converter, CLI media converter Windows, MKV to MP4 Windows, PNG to WebP Windows, JPG to WebP Windows, MOV to MP4 Windows, extract audio MP3 Windows" />
   <meta name="author" content="Sahil Sawant" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="AVI Core" />
 
@@ -40,20 +41,20 @@
   <!-- OpenGraph / Facebook / Discord / Slack -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sahil524.github.io/AVI-Core/" />
-  <meta property="og:title" content="AVI Core — Offline Media Converter for Windows" />
+  <meta property="og:title" content="AVI Core — Open-Source Offline Media Converter for Windows" />
   <meta property="og:description"
-    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+    content="Free open-source offline media converter for Windows with File Explorer right-click integration and developer CLI. Zero uploads, zero lag, 100% offline." />
   <meta property="og:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
-  <meta property="og:image:alt" content="AVI Core - Universal Offline Media Processing Engine" />
+  <meta property="og:image:alt" content="AVI Core - Open-Source Offline Media Converter for Windows" />
   <meta property="og:site_name" content="AVI Core by Sahil Sawant" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://sahil524.github.io/AVI-Core/" />
-  <meta name="twitter:title" content="AVI Core — Offline Media Converter for Windows" />
+  <meta name="twitter:title" content="AVI Core — Open-Source Offline Media Converter for Windows" />
   <meta name="twitter:description"
-    content="Free offline video converter & media conversion tool for Windows. No uploads, zero lag, right-click integration." />
+    content="Free open-source offline media converter for Windows with File Explorer right-click integration and developer CLI. Zero uploads, zero lag." />
   <meta name="twitter:image" content="https://sahil524.github.io/AVI-Core/logo.webp" />
   <meta name="twitter:creator" content="@SahilSawant" />
 
@@ -67,7 +68,7 @@
         "@id": "https://sahil524.github.io/AVI-Core/#website",
         "url": "https://sahil524.github.io/AVI-Core/",
         "name": "AVI Core Official Page",
-        "description": "Landing page and documentation for AVI Core offline media converter for Windows.",
+        "description": "Landing page and documentation for AVI Core — Open-Source Offline Media Converter for Windows.",
         "inLanguage": "en-US",
         "publisher": {
           "@id": "https://sahilsawant.dev/#person"
@@ -80,7 +81,7 @@
         "@type": "WebPage",
         "@id": "https://sahil524.github.io/AVI-Core/#webpage",
         "url": "https://sahil524.github.io/AVI-Core/",
-        "name": "AVI Core — Offline Media Converter for Windows",
+        "name": "AVI Core — Open-Source Offline Media Converter for Windows",
         "isPartOf": {
           "@id": "https://sahil524.github.io/AVI-Core/#website"
         },
@@ -95,11 +96,25 @@
         "@type": "SoftwareApplication",
         "@id": "https://sahil524.github.io/AVI-Core/#software",
         "name": "AVI Core",
-        "description": "Free offline video converter & media conversion tool for Windows with native right-click context menu integration.",
+        "description": "Free open-source offline media converter for Windows with native right-click File Explorer context menu integration and scriptable developer CLI.",
         "applicationCategory": "MultimediaApplication",
-        "operatingSystem": "Windows 10, Windows 11, Linux",
+        "operatingSystem": "Windows 10, Windows 11",
         "softwareVersion": "2.0.0",
-        "fileFormat": ["video/mp4", "video/x-matroska", "image/webp", "image/png", "audio/mpeg", "audio/wav"],
+        "license": "https://opensource.org/licenses/MIT",
+        "fileFormat": [
+          "video/mp4",
+          "video/x-matroska",
+          "video/quicktime",
+          "video/webm",
+          "video/x-msvideo",
+          "audio/mpeg",
+          "audio/wav",
+          "audio/flac",
+          "audio/aac",
+          "image/webp",
+          "image/png",
+          "image/jpeg"
+        ],
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -114,12 +129,16 @@
         "downloadUrl": "https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe",
         "codeRepository": "https://github.com/Sahil524/AVI-Core",
         "featureList": [
-          "Right-click context menu integration",
-          "100% Offline conversion",
+          "Right-click context menu integration in Windows File Explorer",
+          "100% Offline conversion with zero telemetry",
           "Zero file size limits",
-          "Automatic raw file backup vaulting",
-          "Zero lag local hardware processing",
-          "FFmpeg powered engine"
+          "Automatic raw master file backup vaulting",
+          "Two-phase atomic commits with integrity verification",
+          "High-speed stream copy remuxing (--fast)",
+          "Hardware acceleration (NVENC, QuickSync, AMF)",
+          "Bundled pre-configured FFmpeg engine",
+          "Multi-select batch spooling coordinator",
+          "Developer command-line interface (CLI)"
         ]
       },
       {
@@ -220,8 +239,7 @@
 
     #root {
       width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
+      min-height: 100vh;
     }
 
     ::selection {
@@ -250,9 +268,13 @@
     }
 
     a:focus-visible,
-    button:focus-visible {
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
       outline: 2px solid var(--neon);
-      outline-offset: 4px;
+      outline-offset: 3px;
     }
 
     .blink {
@@ -319,23 +341,35 @@
   <div id="root">
     <noscript>
       <header style="padding: 2rem; text-align: center; border-bottom: 1px solid #333;">
-        <h1>AVI Core — Offline Media Converter for Windows</h1>
-        <p>Free, 100% offline media conversion engine with Windows right-click context menu integration.</p>
-        <a href="https://github.com/Sahil524/AVI-Core/releases/latest"
-          style="color: #f1ab01; font-weight: bold;">Download Latest Windows Installer</a>
+        <h1>AVI Core — Open-Source Offline Media Converter for Windows</h1>
+        <p>Free, 100% offline media conversion engine with Windows File Explorer right-click integration and developer CLI.</p>
+        <div style="margin-top: 1rem;">
+          <a href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
+            style="color: #000; background: #f1ab01; padding: 0.6rem 1.2rem; font-weight: bold; text-decoration: none; display: inline-block;">Download Windows Installer (v2.0)</a>
+        </div>
       </header>
-      <main style="padding: 2rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">
-        <h2>Key Features</h2>
+      <main style="padding: 2rem; max-width: 900px; margin: 0 auto; line-height: 1.6;">
+        <h2>Key Features & Architecture</h2>
         <ul>
-          <li><strong>100% Offline:</strong> No uploads, zero network latency, complete data privacy.</li>
-          <li><strong>Context Menu Integration:</strong> Convert video, audio, and images right from Windows File
-            Explorer.</li>
-          <li><strong>Automated Backups:</strong> Safe conversion that vaults originals before processing.</li>
-          <li><strong>Hardware Acceleration:</strong> Direct local processing powered by FFmpeg.</li>
+          <li><strong>100% Offline:</strong> Zero uploads, zero network latency, complete private local processing.</li>
+          <li><strong>Context Menu Integration:</strong> Convert video, audio, and images directly from Windows File Explorer.</li>
+          <li><strong>Fast Stream Copy (--fast):</strong> Instant container repackaging (e.g. MKV to MP4) without quality loss.</li>
+          <li><strong>Automated Backups:</strong> Vaults master files to ./backup/ before converting to prevent data loss.</li>
+          <li><strong>Two-Phase Atomic Commits:</strong> Staged writes to .tmp buffers with probe integrity checks.</li>
+          <li><strong>Hardware Acceleration:</strong> Auto-negotiated NVENC, QuickSync, and AMF encoding.</li>
         </ul>
-        <h2>Documentation & AI Discovery</h2>
-        <p>View AI agent summary in <a href="./llms.txt" style="color: #f1ab01;">llms.txt</a> or full documentation in
-          <a href="./llms-full.txt" style="color: #f1ab01;">llms-full.txt</a>.</p>
+        <h2>Documentation & Web Tools</h2>
+        <ul>
+          <li><a href="./converter.html" style="color: #f1ab01;">AVI Core Web — 100% In-Browser Private Converter</a></li>
+          <li><a href="./download.html" style="color: #f1ab01;">Download AVI Core for Windows</a></li>
+          <li><a href="./docs.html" style="color: #f1ab01;">User Guide & How It Works</a></li>
+          <li><a href="./formats.html" style="color: #f1ab01;">Supported Formats & Fast Convert Guide</a></li>
+          <li><a href="./cli.html" style="color: #f1ab01;">CLI Reference & Automation</a></li>
+          <li><a href="./context-menu.html" style="color: #f1ab01;">Windows Explorer Right-Click Guide</a></li>
+          <li><a href="./faq.html" style="color: #f1ab01;">Frequently Asked Questions (FAQ)</a></li>
+          <li><a href="./llms.txt" style="color: #f1ab01;">AI Machine-Readable Summary (llms.txt)</a></li>
+          <li><a href="./llms-full.txt" style="color: #f1ab01;">Full Technical Specification (llms-full.txt)</a></li>
+        </ul>
       </main>
     </noscript>
   </div>
@@ -563,7 +597,7 @@
       const filesSelected = step >= 1;
 
       return (
-        <div ref={ref} aria-label="Interactive bulk conversion visual demonstration" className="relative inline-block mb-16 md:mb-18 pt-4 pb-6 select-none">
+        <div ref={ref} aria-label="Interactive bulk conversion visual demonstration" className="relative inline-block max-w-full mb-16 md:mb-18 pt-4 pb-6 select-none">
           {/* Windows Selection Outline & Glow */}
           <motion.div
             animate={{ scaleX: boxVisible ? 1 : 0, opacity: boxVisible ? 1 : 0 }}
@@ -587,7 +621,7 @@
             )}
           </AnimatePresence>
 
-          <div className="relative z-10 flex gap-6 sm:gap-10">
+          <div className="relative z-10 flex gap-3 sm:gap-6 md:gap-10 justify-center">
             {files.map((name, i) => (
               <div key={name} className="flex flex-col items-center gap-2.5 group">
                 <motion.div
@@ -772,14 +806,126 @@
       );
     }
 
-    /* ---------- Header ---------- */
-    function Header() {
+    /* ---------- Navigation Header Component ---------- */
+    function Header({ current = "home" }) {
+      const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+      const navLinks = [
+        { label: "Home", href: "./index.html", key: "home" },
+        { label: "Web Converter", href: "./converter.html", key: "converter" },
+        { label: "Download", href: "./download.html", key: "download" },
+        { label: "How It Works", href: "./docs.html", key: "docs" },
+        { label: "Formats", href: "./formats.html", key: "formats" },
+        { label: "Right-Click Menu", href: "./context-menu.html", key: "menu" },
+        { label: "CLI", href: "./cli.html", key: "cli" },
+        { label: "FAQ", href: "./faq.html", key: "faq" },
+      ];
+
       return (
-        <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-5 mix-blend-difference">
-          <div className="flex items-center gap-2.5">
-            <Logo />
+        <header className="fixed top-0 left-0 w-full z-50 bg-black/85 backdrop-blur-md border-b border-white/10 px-6 md:px-10 py-4 transition-all">
+          <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+            <a href="./index.html" className="flex items-center gap-3 group" aria-label="AVI Core Home">
+              <img src="./logo.webp" alt="AVI Core Logo" width="36" height="36" className="object-contain transition-transform group-hover:scale-105" />
+              <div className="flex flex-col text-left">
+                <span className="font-display font-bold text-sm tracking-wider text-white group-hover:text-neon transition-colors">AVI CORE</span>
+                <span className="font-mono-x text-[9px] text-white/50 tracking-widest">OFFLINE ENGINE</span>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-6 font-mono-x text-xs tracking-wider">
+              {navLinks.map((link) => {
+                const isActive = current === link.key;
+                return (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    className={`transition-colors py-1 ${
+                      isActive ? "text-neon font-bold" : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+
+            {/* Actions */}
+            <div className="hidden sm:flex items-center gap-4">
+              <a
+                href="https://github.com/Sahil524/AVI-Core"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono-x text-xs text-white/70 hover:text-neon flex items-center gap-1.5 transition-colors border border-white/15 px-3 py-1.5"
+              >
+                <span>GitHub</span>
+                <span className="text-[10px] text-white/40">↗</span>
+              </a>
+              <a
+                href="./download.html"
+                className="btn-hard px-4 py-1.5 font-mono-x text-xs tracking-wider uppercase text-neon border-neon/50 hover:border-neon"
+              >
+                Download App
+              </a>
+            </div>
+
+            {/* Mobile Hamburger */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden text-white/80 hover:text-neon p-2 focus:outline-none"
+              aria-label="Toggle Navigation Menu"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-menu"
+            >
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+                {mobileMenuOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
-          <span className="font-mono-x text-[10px] md:text-xs tracking-[0.2em] text-white/70">WIN / OFFLINE</span>
+
+          {/* Mobile Menu Dropdown */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                id="mobile-nav-menu"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="lg:hidden border-t border-white/10 mt-3 pt-4 pb-4 flex flex-col gap-3 font-mono-x text-sm"
+              >
+                {navLinks.map((link) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`py-1.5 px-2 ${current === link.key ? "text-neon font-bold bg-white/5" : "text-white/70"}`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <div className="pt-2 flex flex-col gap-2">
+                  <a
+                    href="https://github.com/Sahil524/AVI-Core"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-white/20 py-2 text-center text-xs text-white/80"
+                  >
+                    GitHub Repository ↗
+                  </a>
+                  <a
+                    href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
+                    className="bg-neon text-black font-bold py-2 text-center text-xs tracking-wider uppercase"
+                  >
+                    Download Installer
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </header>
       );
     }
@@ -803,7 +949,7 @@
         <section
           onMouseMove={handleMouseMove}
           aria-label="Hero Introduction"
-          className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative pt-20 pb-16"
+          className="min-h-screen flex flex-col items-center justify-center text-center px-6 relative pt-24 pb-16"
         >
           {/* Eyebrow Badge */}
           <motion.div
@@ -818,11 +964,12 @@
             <span className="text-neon">RUNNING LOCALLY</span>
           </motion.div>
 
-          {/* Staggered 3D Headline */}
+          {/* Staggered 3D Headline with Primary Entity Accessibility & SEO */}
           <motion.h1
             style={{ rotateX, rotateY, transformPerspective: 1000, willChange: "transform" }}
             className="font-display font-bold uppercase leading-[0.92] tracking-tight text-[3rem] sm:text-[3.5rem] md:text-[5rem] max-w-5xl"
           >
+            <span className="sr-only">AVI Core — Open-Source Offline Media Converter for Windows</span>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -849,6 +996,13 @@
             </motion.span>
           </motion.h1>
 
+          {/* Primary Entity Subtitle */}
+          <Reveal delay={150}>
+            <div className="mt-5 font-mono-x text-xs sm:text-sm text-neon/90 tracking-widest uppercase bg-white/5 border border-white/10 px-4 py-1.5 inline-block">
+              AVI Core — Open-Source Offline Media Converter for Windows
+            </div>
+          </Reveal>
+
           {/* Description */}
           <Reveal delay={200}>
             <p className="mt-8 max-w-xl text-white/70 text-base md:text-lg leading-relaxed">
@@ -858,15 +1012,19 @@
 
           {/* Magnetic CTA */}
           <Reveal delay={300}>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <MagneticButton
-                href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="./download.html"
                 ariaLabel="Download AVI Core for Windows for free"
               >
                 Download for Windows (Free)
               </MagneticButton>
+              <a
+                href="./converter.html"
+                className="btn-hard border border-white/20 hover:border-neon hover:text-neon px-8 py-4 font-mono-x text-sm tracking-[0.15em] uppercase text-white/90 transition-colors"
+              >
+                Try Web Converter ➔
+              </a>
             </div>
           </Reveal>
 
@@ -1020,7 +1178,7 @@
       return (
         <section ref={ref} aria-label="Terminal CLI Integration" className="flex flex-col px-6 sm:px-12 md:px-24 py-24">
           <motion.div
-            className="mb-14 border border-white/10 bg-[#0A0A0A] w-full h-[24rem] overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.9)]"
+            className="mb-14 border border-white/10 bg-[#0A0A0A] w-full min-h-[16rem] md:h-[22rem] overflow-hidden relative shadow-[0_0_40px_rgba(0,0,0,0.9)]"
             initial={{ opacity: 0, y: 24, scale: 0.98 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -1033,7 +1191,7 @@
               <span className="w-2.5 h-2.5 border border-white/40"></span>
               <span className="ml-3 font-mono-x text-[10px] tracking-[0.25em] text-white/40">AVICORE.EXE</span>
             </div>
-            <div className="p-6 font-mono-x text-sm leading-relaxed min-h-[140px] relative z-20 flex flex-col gap-2">
+            <div className="p-4 sm:p-6 font-mono-x text-xs sm:text-sm leading-relaxed min-h-[140px] relative z-20 flex flex-col gap-2 overflow-x-auto">
               {lines.map((line, i) => (
                 <div key={i} className="text-white/80">
                   <div><span className="text-neon">$</span> {line.typed}{line.status === "typing" && <span className="blink text-neon">_</span>}</div>
@@ -1086,16 +1244,22 @@
           </Reveal>
           <Reveal delay={140}>
             <div className="mt-12 relative z-10 flex flex-col items-center gap-4">
-              <MagneticButton
-                href="https://github.com/Sahil524/AVI-Core/releases/download/v2.0.0/AVI-Core-Setup-v2.0.0.exe"
-                target="_blank"
-                rel="noopener noreferrer"
-                ariaLabel="Get AVI Core Now for Windows"
-              >
-                Get AVI Core Now
-              </MagneticButton>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <MagneticButton
+                  href="./download.html"
+                  ariaLabel="Get AVI Core Now for Windows"
+                >
+                  Download for Windows
+                </MagneticButton>
+                <a
+                  href="./converter.html"
+                  className="btn-hard border border-white/20 hover:border-neon hover:text-neon px-8 py-4 font-mono-x text-sm tracking-[0.15em] uppercase text-white/90 transition-colors"
+                >
+                  Use Web Converter ➔
+                </a>
+              </div>
               <span className="font-mono-x text-[10px] md:text-xs tracking-[0.2em] text-white/40">
-                Free forever • No account required
+                100% Free • Open Source • No Account Required
               </span>
             </div>
           </Reveal>
@@ -1106,13 +1270,25 @@
     /* ---------- Upgraded Footer Section ---------- */
     function Footer() {
       return (
-        <footer className="border-t border-white/10 py-10 text-center bg-black/60 backdrop-blur-md relative overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-[1px] bg-gradient-to-r from-transparent via-neon/60 to-transparent" />
-          <Reveal y={10}>
-            <p className="font-mono-x text-[10px] md:text-xs tracking-[0.3em] text-white/40 hover:text-white/70 transition-colors duration-300 select-none">
-              BUILT FOR WINDOWS &nbsp;•&nbsp; 100% OFFLINE &nbsp;•&nbsp; COMPLETELY FREE
+        <footer className="border-t border-white/10 py-12 px-6 md:px-12 w-full text-center font-mono-x text-xs text-white/50 space-y-4 mt-auto">
+          <div className="max-w-[1400px] mx-auto space-y-4">
+            <div className="flex flex-wrap justify-center gap-6 text-white/70">
+              <a href="./index.html" className="text-neon font-bold">Home</a>
+              <a href="./converter.html" className="hover:text-neon">Web Converter</a>
+              <a href="./download.html" className="hover:text-neon">Download</a>
+              <a href="./docs.html" className="hover:text-neon">Docs</a>
+              <a href="./formats.html" className="hover:text-neon">Supported Formats</a>
+              <a href="./cli.html" className="hover:text-neon">CLI Reference</a>
+              <a href="./context-menu.html" className="hover:text-neon">Context Menu</a>
+              <a href="./faq.html" className="hover:text-neon">FAQ</a>
+              <a href="./llms.txt" className="hover:text-neon">llms.txt</a>
+              <a href="./llms-full.txt" className="hover:text-neon">llms-full.txt</a>
+              <a href="https://github.com/Sahil524/AVI-Core" target="_blank" rel="noopener noreferrer" className="hover:text-neon">GitHub ↗</a>
+            </div>
+            <p className="text-[10px] tracking-widest text-white/40">
+              AVI CORE &nbsp;•&nbsp; 100% OFFLINE WINDOWS MEDIA ENGINE &nbsp;•&nbsp; MIT OPEN SOURCE
             </p>
-          </Reveal>
+          </div>
         </footer>
       );
     }
@@ -1291,12 +1467,12 @@
     function App() {
       return (
         <MotionConfig reducedMotion="user">
-          <div className="relative min-h-screen w-full">
+          <div className="relative min-h-screen w-full flex flex-col justify-between">
             <ScrollProgress />
             <InteractiveBackground />
             <CustomCursor />
             <Header />
-            <main id="main-content">
+            <main id="main-content" className="flex-1">
               <Hero />
               <RealityCheck />
               <SafetyNet />

@@ -14,6 +14,8 @@ OutputDir=dist
 OutputBaseFilename=AVI-Core-Setup-v2.0.0
 ArchitecturesInstallIn64BitMode=x64compatible
 PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog commandline
+ChangesEnvironment=yes
 DisableWelcomePage=no
 DisableDirPage=no
 DisableProgramGroupPage=yes
@@ -35,6 +37,13 @@ Name: "{group}\AVI Core"; Filename: "{app}\avicore\avicore.exe"; Parameters: "--
 Name: "{group}\Uninstall AVI Core"; Filename: "{uninstallexe}"; IconFilename: "{app}\logo.ico"
 
 [Registry]
+; ============================================================
+; System PATH Registration
+; ============================================================
+Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; \
+    ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\avicore"; \
+    Check: NeedsAddPath(ExpandConstant('{app}\avicore'))
+
 ; ============================================================
 ; PERCEIVED TYPE KEYS — set as a baseline so Windows knows the
 ; media category for each extension. The actual context menu
@@ -67,15 +76,15 @@ Root: HKLM; Subkey: "SOFTWARE\Classes\.ogg";  ValueType: string; ValueName: "Per
 Root: HKLM; Subkey: "SOFTWARE\Classes\.m4a";  ValueType: string; ValueName: "PerceivedType"; ValueData: "audio"
 
 [Run]
-; Register per-extension context menu entries after install.
-Filename: "{app}\context_menu.exe"; Parameters: "register"; Flags: runhidden waituntilterminated; StatusMsg: "Registering AVI Core context menu..."
+; Register per-extension context menu entries after install silently
+Filename: "{app}\context_menu.exe"; Parameters: "register --silent"; Flags: runhidden waituntilterminated; StatusMsg: "Registering AVI Core context menu..."
 
 [UninstallRun]
-; Clean up all per-extension registry entries on uninstall
-Filename: "{app}\context_menu.exe"; Parameters: "unregister"; Flags: runhidden waituntilterminated
+; Clean up all per-extension registry entries on uninstall silently
+Filename: "{app}\context_menu.exe"; Parameters: "unregister --silent"; Flags: runhidden waituntilterminated
 
 [UninstallDelete]
-Type: filesandordirs; Name: "{localappdata}\AVICore"
+Type: filesandordirs; Name: "{localappdata}\AVICore\runtime"
 
 [Code]
 const
@@ -94,6 +103,46 @@ begin
   end;
 end;
 
+function NeedsAddPath(Param: string): boolean;
+var
+  OrigPath: string;
+begin
+  if not RegQueryStringValue(HKEY_LOCAL_MACHINE,
+    'SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
+    'Path', OrigPath)
+  then begin
+    Result := True;
+    exit;
+  end;
+  Result := Pos(';' + UpperCase(Param) + ';', ';' + UpperCase(OrigPath) + ';') = 0;
+end;
+
+procedure RemovePath(Param: string);
+var
+  OrigPath, Target: string;
+  P, L: Integer;
+begin
+  if RegQueryStringValue(HKEY_LOCAL_MACHINE,
+    'SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
+    'Path', OrigPath)
+  then begin
+    Target := UpperCase(Param);
+    P := Pos(';' + Target, ';' + UpperCase(OrigPath));
+    if P > 0 then begin
+      L := Length(Target);
+      if (P > 1) and (P + L <= Length(OrigPath)) and (OrigPath[P + L] = ';') then
+        Delete(OrigPath, P, L + 1)
+      else if P > 1 then
+        Delete(OrigPath, P - 1, L + 1)
+      else
+        Delete(OrigPath, P, L);
+      RegWriteStringValue(HKEY_LOCAL_MACHINE,
+        'SYSTEM\CurrentControlSet\Control\Session Manager\Environment',
+        'Path', OrigPath);
+    end;
+  end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssPostInstall then
@@ -104,6 +153,10 @@ end;
 
 procedure CurUninstallStepChanged(JustAfterAnUninstallStep: TUninstallStep);
 begin
+  if JustAfterAnUninstallStep = usUninstall then
+  begin
+    RemovePath(ExpandConstant('{app}\avicore'));
+  end;
   if JustAfterAnUninstallStep = usPostUninstall then
   begin
     RefreshExplorerShell;
